@@ -39,7 +39,7 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white mb-20 mt-5 shadow-lg rounded-xl p-6 md:p-8 lg:p-10">
+    <div id="eventform" className="max-w-4xl mx-auto bg-white mb-20 mt-5 shadow-lg rounded-xl p-6 md:p-8 lg:p-10">
       <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
         {initialEvent ? "Edit Event" : "Create New Event"}
       </h2>
