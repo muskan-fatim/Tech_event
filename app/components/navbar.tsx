@@ -35,9 +35,9 @@ export default function Navbar() {
             {/* Mobile Menu Dropdown */}
             {isOpen && (
                 <ul id="mobile-menu" className="md:hidden flex flex-col mt-4 space-y-2 bg-gray-700 p-3 rounded-lg">
-                    <li><Link href="/" className="block py-2 px-4 hover:bg-gray-600" onClick={() => setIsOpen(false)}>Home</Link></li>
-                    <li><Link href="/#eventform" className="block py-2 px-4 hover:bg-gray-600" onClick={() => setIsOpen(false)}>Add Event</Link></li>
-                    <li><Link href="/#event" className="block py-2 px-4 hover:bg-gray-600" onClick={() => setIsOpen(false)}>View Events</Link></li>
+                    <li><a href="/" className="block py-2 px-4 hover:bg-gray-600" onClick={() => setIsOpen(false)}>Home</a></li>
+                    <li><a href="#eventform" className="block py-2 px-4 hover:bg-gray-600" onClick={() => setIsOpen(false)}>Add Event</a></li>
+                    <li><a href="#event" className="block py-2 px-4 hover:bg-gray-600" onClick={() => setIsOpen(false)}>View Events</a></li>
                 </ul>
             )}
         </nav>
