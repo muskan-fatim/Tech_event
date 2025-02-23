@@ -8,9 +8,8 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className=" fixed bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 shadow-lg" aria-label="Main Navigation">
-            <div className="max-w-7xl mx-auto flex justify-between items-center">
-                {/* Logo / Brand Name */}
+        <nav className="fixed top-0 left-0 w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 shadow-lg" aria-label="Main Navigation">
+  <div className="max-w-7xl mx-auto flex justify-between items-center">
                 <h1 className="text-2xl font-bold">Tech Events</h1>
                      
                 {/* Desktop Menu */}
