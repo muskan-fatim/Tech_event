@@ -10,7 +10,7 @@ const Hero: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery }) => {
     <div className="w-full bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto text-center py-16 md:py-24 lg:py-32">
         {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+        <h1 className="pt-5 text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
           Discover Amazing Events
         </h1>
         <p className="text-lg sm:text-xl mt-4 max-w-2xl mx-auto text-gray-700">
