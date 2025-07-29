@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
-import { readCSV } from "./components/csv";
-import EventGrid from "./components/event";
+import EventGrid, { Carousel } from "./components/event";
 import EventForm from "./components/eventform";
 import Navbar from "./components/navbar";
 import Hero from "./components/Hero";
@@ -14,9 +13,11 @@ export default function Home() {
     const [loading, setLoading] = useState(true); // Track loading state
 
     useEffect(() => {
-        readCSV((data) => {
-            setEvents(data);
-            setLoading(false); // Hide loader when data is ready
+        fetch("/api/get-event")
+            .then(res => res.json())
+            .then(data => {
+                setEvents(data.events || []);
+                setLoading(false);
         });
     }, []);
 
@@ -36,6 +37,7 @@ export default function Home() {
         <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
             <Navbar />
             <Hero searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <Carousel />
             <EventGrid events={filteredEvents || []} />
             <EventForm onSave={handleSaveEvent} />
             <Footer />
