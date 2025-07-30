@@ -84,7 +84,7 @@ export default function Navbar() {
         
         const baseClasses = "px-4 py-2 rounded-full transition-all duration-300 ease-in-out";
         
-        const activeClasses = "bg-gradient-to-r from-blue-700 to-purple-700 font-semibold text-white shadow-md";  
+        const activeClasses = "bg-gradient-to-r from-blue-700 to-purple-700 font-semibold text-white shadow-md text-glow-effect hover:scale-105 transform hover:bg-white/20"; // Keep text as default white, only change background on hover
         const hoverClasses = "hover:bg-white/20"; // Keep text as default white, only change background on hover
 
         const isActive = activeSection === href || (href === '/' && activeSection === '#home');
@@ -110,7 +110,7 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto flex justify-between items-center">
                 <Link href="/" className="flex items-center space-x-2" onClick={() => handleLinkClick("/")}>
                     <img src="/logo.png" alt="Tech Events Logo" className="h-8 w-8 rounded-full" />
-                    <span className="text-2xl font-bold">Tech Events</span>
+                    <span className="text-2xl font-bold text-glow-effect">Tech Events</span>
                 </Link>
 
                 <ul className="hidden md:flex space-x-2">
