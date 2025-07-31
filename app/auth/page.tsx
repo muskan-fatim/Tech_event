@@ -1,0 +1,12 @@
+'use client';
+// Update the import path if AuthForm is located elsewhere, for example:
+import AuthForm from '../components/AuthForm';
+// Or create the file at ../../components/AuthForm.tsx if it does not exist.
+
+export default function AuthPage() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-6">
+      <AuthForm />
+    </div>
+  );
+}
