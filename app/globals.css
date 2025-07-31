@@ -2,7 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Optional: Smooth background and text color transitions */
+/* Smooth background and text color transitions */
 html {
   transition: background-color 0.3s, color 0.3s;
+}
+
+/* Custom CSS for the text glow effect */
+.text-glow-effect {
+  text-shadow: none;
+  transition: text-shadow 0.3s ease-in-out;
+}
+
+.text-glow-effect:hover,
+.text-glow-effect:focus {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
+               0 0 15px rgba(255, 255, 255, 0.4);
+  outline: none;
 }
