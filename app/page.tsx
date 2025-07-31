@@ -34,13 +34,14 @@ export default function Home() {
     if (loading) return <Loader />; // Show loader until everything is ready
 
     return (
-        <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-            <Navbar />
-            <Hero searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            <Carousel />
-            <EventGrid events={filteredEvents || []} />
-            <EventForm onSave={handleSaveEvent} />
-            <Footer />
-        </div>
+        <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-950 dark:via-purple-950 dark:to-gray-900 transition-colors duration-500 min-h-screen">
+  <Navbar />
+  <Hero searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+  <Carousel />
+  <EventGrid events={filteredEvents || []} />
+  <EventForm onSave={handleSaveEvent} />
+  <Footer />
+</div>
+
     );
 }
