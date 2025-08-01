@@ -9,6 +9,7 @@ interface Event {
   "Event Date": string;
   "Event Time": string;
   "Event Type": string;
+  isPastEvent?: boolean;
 }
 
 // Carousel component for live events
@@ -87,13 +88,19 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
   if (!events || events.length === 0) {
     return <p className="text-center text-gray-500">No events found.</p>;
   }
+
+  // Separate upcoming and past events
+  const upcomingEvents = events.filter(event => !event.isPastEvent);
+  const pastEvents = events.filter(event => event.isPastEvent);
+
   return (
     <div className="p-6 bg-gray-50" id="event">
+      {/* Upcoming Events Section */}
       <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Upcoming Tech Events</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {events.map((event, index) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {upcomingEvents.map((event, index) => (
           <div
-            key={index}
+            key={`upcoming-${index}`}
             className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
           >
             <div className="p-6">
@@ -117,6 +124,43 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
           </div>
         ))}
       </div>
+
+      {/* Past Events Section */}
+      {pastEvents.length > 0 && (
+        <>
+          <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Past Events</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {pastEvents.map((event, index) => (
+              <div
+                key={`past-${index}`}
+                className="bg-gray-100 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden opacity-75"
+              >
+                <div className="p-6">
+                  <div className="flex flex-wrap items-center gap-2 mb-4">
+                    <span className="px-3 py-1 rounded-full text-sm font-medium bg-gray-200 text-gray-700">
+                      {event["Event Type"]}
+                    </span>
+                    <span className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+                      {event.Location}
+                    </span>
+                    <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">
+                      Past Event
+                    </span>
+                  </div>
+                  <h2 className="text-xl font-bold mb-2 text-gray-700">{event["Event Name"]}</h2>
+                  <div className="text-gray-600 mb-1">
+                    <strong>Organizer:</strong> {event["Organizer Name"]}
+                  </div>
+                  <div className="text-gray-500 mb-1">
+                    {event["Event Date"]} at {event["Event Time"]}
+                  </div>
+                  <div className="text-gray-400">{event.Address}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
