@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const Loader = () => {
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-900 via-purple-800 to-blue-600">
+    <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-900 via-purple-800 to-blue-600 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="relative flex flex-col items-center">
         {/* Spinning Globe */}
         <motion.div
@@ -12,7 +12,7 @@ const Loader = () => {
         />
 
         {/* Glowing Text */}
-        <h2 className="mt-6 text-2xl font-semibold text-white animate-pulse">
+        <h2 className="mt-6 text-2xl font-semibold text-white dark:text-gray-100 animate-pulse">
           Loading Tech Events...
         </h2>
       </div>
