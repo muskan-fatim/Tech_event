@@ -10,6 +10,7 @@ interface Event {
   "Event Date": string;
   "Event Time": string;
   "Event Type": string;
+  isPastEvent?: boolean;
 }
 
 interface SearchBarProps {
@@ -53,7 +54,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSe
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                 className="flex-1 text-lg text-gray-800 placeholder-gray-500 bg-transparent focus:outline-none font-medium"
               />
-              <button 
+              <button
                 onClick={handleSearch}
                 className="ml-4 bg-gradient-to-r from-red-800 to-slate-900 text-white px-8 py-3 rounded-xl font-semibold hover:from-red-900 hover:to-slate-800 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
@@ -471,26 +472,26 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
 
   const getIconBgColor = (type: string) => {
     const colors = {
-        'Workshop': 'bg-red-100',
-        'Conference': 'bg-slate-100',
-        'Meetup': 'bg-red-100',
-        'Networking': 'bg-slate-100',
-        'Music': 'bg-red-100',
-        'Art & Culture': 'bg-slate-100',
-        'default': 'bg-gray-100'
+      'Workshop': 'bg-red-100',
+      'Conference': 'bg-slate-100',
+      'Meetup': 'bg-red-100',
+      'Networking': 'bg-slate-100',
+      'Music': 'bg-red-100',
+      'Art & Culture': 'bg-slate-100',
+      'default': 'bg-gray-100'
     };
     return colors[type as keyof typeof colors] || colors.default;
   }
 
   const getIconColor = (type: string) => {
     const colors = {
-        'Workshop': 'text-red-700',
-        'Conference': 'text-slate-700',
-        'Meetup': 'text-red-700',
-        'Networking': 'text-slate-700',
-        'Music': 'text-red-700',
-        'Art & Culture': 'text-slate-700',
-        'default': 'text-gray-700'
+      'Workshop': 'text-red-700',
+      'Conference': 'text-slate-700',
+      'Meetup': 'text-red-700',
+      'Networking': 'text-slate-700',
+      'Music': 'text-red-700',
+      'Art & Culture': 'text-slate-700',
+      'default': 'text-gray-700'
     };
     return colors[type as keyof typeof colors] || colors.default;
   }
@@ -524,8 +525,8 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
           </div>
 
           {/* Search Bar */}
-          <SearchBar 
-            searchQuery={searchQuery} 
+          <SearchBar
+            searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             onSearch={handleSearch}
             onTagClick={handleTagClick}
@@ -622,7 +623,7 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
           {/* Load More Button */}
           {eventsToShow < filteredEvents.length && (
             <div className="flex justify-center mt-12">
-              <button 
+              <button
                 onClick={handleLoadMore}
                 className="group inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-red-200 rounded-full font-bold text-gray-700 hover:text-red-700 hover:border-red-300 transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl"
               >
@@ -640,7 +641,7 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">No events found</h3>
               <p className="text-gray-600 mb-6">Try adjusting your search terms or browse all events</p>
-              <button 
+              <button
                 onClick={() => {
                   setSearchQuery("");
                   setEventsToShow(6); // Reset the number of events to show when clearing the search
