@@ -7,11 +7,11 @@ interface SearchBarProps {
 
 const Hero: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery }) => {
   return (
-   <div className="w-full bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 
+<div id="home" className="w-full bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 
                 dark:from-[#2b263d] dark:via-[#3a3353] dark:to-[#2b263d] 
                 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
   <div className="max-w-6xl mx-auto text-center py-16 md:py-24 lg:py-32">
-    
+
     {/* Heading */}
     <h1 className="pt-5 text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent 
                    bg-gradient-to-r from-blue-600 to-purple-600 
@@ -19,6 +19,13 @@ const Hero: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery }) => {
       Discover Amazing Events
     </h1>
 
+    {/* Optional Paragraph (from main) */}
+    <p className="text-lg sm:text-xl mt-4 max-w-2xl mx-auto text-gray-700 dark:text-gray-300">
+      Search through exciting events, workshops, and meetups happening near you!
+    </p>
+    
+  </div>
+</div>
     <p className="text-lg sm:text-xl mt-4 max-w-2xl mx-auto 
                   text-gray-700 dark:text-[#d2cbe6]">
       Search through exciting events, workshops, and meetups happening near you!
