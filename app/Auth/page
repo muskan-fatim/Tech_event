@@ -1,6 +1,6 @@
 'use client';
 // Update the import path if AuthForm is located elsewhere, for example:
-import AuthForm from '../components/AuthForm';
+import AuthForm from '../components/authForm';
 // Or create the file at ../../components/AuthForm.tsx if it does not exist.
 
 export default function AuthPage() {
