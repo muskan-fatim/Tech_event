@@ -13,7 +13,7 @@ export default function Home() {
     const [loading, setLoading] = useState(true); // Track loading state
 
     useEffect(() => {
-        fetch("/api/get-event")
+        fetch("/api/get-event?past=true")
             .then(res => res.json())
             .then(data => {
                 setEvents(data.events || []);
