@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import { Calendar, Clock, MapPin, User, Star, ArrowRight, Sparkles, Play, Search } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Event {
   "Event Name": string;
@@ -35,15 +36,37 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSe
     }
   };
 
+  const tags = ['Workshops', 'Tech Events', 'Music', 'Art & Culture', 'Sports', 'Networking'];
+
   return (
-    <div className={`transform transition-all duration-1000 delay-300 w-full max-w-5xl mx-auto mb-12 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-      <div className="relative group">
+    <motion.div 
+      initial={{ y: 50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="w-full max-w-4xl mx-auto mb-8"
+    >
+      <motion.div 
+        className="relative group"
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.3 }}
+      >
         {/* Search Input Container */}
-        <div className={`relative transform transition-all duration-300 ${focusedInput ? 'scale-105' : 'scale-100'}`}>
-          <div className="absolute inset-0 bg-gradient-to-r from-red-700 to-slate-800 rounded-2xl blur-sm opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+        <motion.div 
+          className={`relative transform transition-all duration-300 ${focusedInput ? 'scale-105' : 'scale-100'}`}
+          animate={{ boxShadow: focusedInput ? "0 25px 50px -12px rgba(0, 0, 0, 0.25)" : "0 10px 15px -3px rgba(0, 0, 0, 0.1)" }}
+        >
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-r from-red-700 to-slate-800 rounded-2xl blur-sm opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+            animate={{ scale: focusedInput ? 1.1 : 1 }}
+          />
           <div className="relative bg-white rounded-2xl border-2 border-gray-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-            <div className="flex items-center px-6 py-5">
-              <Search className={`w-6 h-6 transition-colors duration-300 mr-4 ${focusedInput ? 'text-red-700' : 'text-gray-400'}`} />
+            <div className="flex items-center px-4 py-3">
+              <motion.div
+                animate={{ rotate: focusedInput ? 360 : 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Search className={`w-5 h-5 transition-colors duration-300 mr-3 ${focusedInput ? 'text-red-700' : 'text-gray-400'}`} />
+              </motion.div>
               <input
                 type="text"
                 placeholder="Search events by city, name, or category..."
@@ -52,37 +75,48 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSe
                 onFocus={() => setFocusedInput(true)}
                 onBlur={() => setFocusedInput(false)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                className="flex-1 text-lg text-gray-800 placeholder-gray-500 bg-transparent focus:outline-none font-medium"
+                className="flex-1 text-base text-gray-800 placeholder-gray-500 bg-transparent focus:outline-none font-medium"
               />
-              <button
+              <motion.button
                 onClick={handleSearch}
-                className="ml-4 bg-gradient-to-r from-red-800 to-slate-900 text-white px-8 py-3 rounded-xl font-semibold hover:from-red-900 hover:to-slate-800 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="ml-3 bg-gradient-to-r from-red-800 to-slate-900 text-white px-6 py-2 rounded-lg font-semibold hover:from-red-900 hover:to-slate-800 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 Search
-              </button>
+              </motion.button>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Quick Filter Tags */}
-      <div className="flex flex-wrap justify-center gap-3 mt-8">
-        {['Workshops', 'Tech Events', 'Music', 'Art & Culture', 'Sports', 'Networking'].map((tag, index) => (
-          <button
+      <motion.div 
+        className="flex flex-wrap justify-center gap-2 mt-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+      >
+        {tags.map((tag, index) => (
+          <motion.button
             key={tag}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => {
               if (onTagClick) {
                 onTagClick(tag.toLowerCase());
               }
             }}
-            className={`px-6 py-2 rounded-full bg-white border-2 border-gray-200 text-gray-700 hover:border-red-300 hover:bg-red-50 hover:text-red-700 hover:scale-105 transform transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md`}
-            style={{ animationDelay: `${500 + index * 100}ms` }}
+            className={`px-4 py-1.5 rounded-full bg-white border-2 border-gray-200 text-gray-700 hover:border-red-300 hover:bg-red-50 hover:text-red-700 transition-all duration-200 text-xs font-medium shadow-sm hover:shadow-md`}
           >
             {tag}
-          </button>
+          </motion.button>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -138,10 +172,19 @@ const Carousel: React.FC = () => {
   if (events.length === 0)
     return (
       <div className="w-full min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-red-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div 
+            className="w-16 h-16 border-4 border-red-400 border-t-transparent rounded-full mx-auto mb-4"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
           <p className="text-gray-600 text-xl font-medium">Loading live events...</p>
-        </div>
+        </motion.div>
       </div>
     );
 
@@ -150,111 +193,235 @@ const Carousel: React.FC = () => {
   return (
     <div className="relative w-full min-h-screen bg-white overflow-hidden" id="home">
       {/* Subtle Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-red-100 rounded-full blur-3xl opacity-30"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-gray-100 rounded-full blur-3xl opacity-30"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-20"></div>
-      </div>
+      <motion.div 
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.div 
+          className="absolute top-20 left-10 w-64 h-64 bg-red-100 rounded-full blur-3xl opacity-30"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div 
+          className="absolute bottom-20 right-10 w-80 h-80 bg-gray-100 rounded-full blur-3xl opacity-30"
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            rotate: [360, 180, 0]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div 
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-20"
+          animate={{ 
+            scale: [1, 1.1, 1],
+            rotate: [0, 360]
+          }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        />
+      </motion.div>
 
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-12">
         {/* Header Section */}
-        <div className={`text-center mb-12 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <div className="inline-flex items-center px-6 py-3 bg-white border-2 border-red-200 rounded-full shadow-lg mb-6">
-            <Play className="w-5 h-5 text-red-500 mr-3 animate-pulse" />
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <motion.div 
+            className="inline-flex items-center px-6 py-3 bg-white border-2 border-red-200 rounded-full shadow-lg mb-6"
+            whileHover={{ scale: 1.05 }}
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            >
+              <Play className="w-5 h-5 text-red-500 mr-3" />
+            </motion.div>
             <span className="text-red-600 font-semibold">LIVE NOW</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 mb-4">
+          </motion.div>
+          <motion.h1 
+            className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-3"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-900 to-slate-800">
               Live Events
             </span>
-          </h1>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          </motion.h1>
+          <motion.p 
+            className="text-gray-600 text-base max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             Join these happening events right now and connect with like-minded people
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Event Card */}
-        <div className={`relative w-full max-w-4xl transform transition-all duration-700 ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}>
-          <div className="absolute inset-0 bg-gradient-to-r from-red-200 to-slate-200 rounded-3xl blur-xl opacity-40"></div>
+        <motion.div 
+          className="relative w-full max-w-3xl"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          whileHover={{ scale: 1.02 }}
+        >
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-r from-red-200 to-slate-200 rounded-3xl blur-xl opacity-40"
+            animate={{ 
+              scale: [1, 1.1, 1],
+              opacity: [0.4, 0.6, 0.4]
+            }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
           <div className="relative bg-white rounded-3xl border-2 border-gray-100 shadow-2xl overflow-hidden">
             
             {/* Event Content */}
-            <div className="p-8 sm:p-12">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="p-6 sm:p-8">
+              <div className="grid md:grid-cols-2 gap-6 items-center">
                 
                 {/* Left Column - Event Details */}
-                <div className="space-y-6">
-                  <div className="flex flex-wrap gap-3 mb-4">
-                    <span className="px-4 py-2 bg-gradient-to-r from-red-700 to-slate-800 text-white rounded-full text-sm font-semibold shadow-lg">
+                <motion.div 
+                  className="space-y-6"
+                  initial={{ x: -50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                >
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    <motion.span 
+                      className="px-3 py-1.5 bg-gradient-to-r from-red-700 to-slate-800 text-white rounded-full text-xs font-semibold shadow-lg"
+                      whileHover={{ scale: 1.1 }}
+                    >
                       {event["Event Type"]}
-                    </span>
-                    <span className="px-4 py-2 bg-gradient-to-r from-slate-700 to-red-800 text-white rounded-full text-sm font-semibold shadow-lg">
+                    </motion.span>
+                    <motion.span 
+                      className="px-3 py-1.5 bg-gradient-to-r from-slate-700 to-red-800 text-white rounded-full text-xs font-semibold shadow-lg"
+                      whileHover={{ scale: 1.1 }}
+                    >
                       {event.Location}
-                    </span>
+                    </motion.span>
                   </div>
 
-                  <h2 className="text-3xl sm:text-4xl font-black text-gray-900 leading-tight">
+                  <motion.h2 
+                    className="text-2xl sm:text-3xl font-black text-gray-900 leading-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 1 }}
+                  >
                     {event["Event Name"]}
-                  </h2>
+                  </motion.h2>
 
-                  <div className="space-y-4">
-                    <div className="flex items-center text-gray-700">
-                      <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                        <Calendar className="w-5 h-5 text-red-700" />
-                      </div>
-                      <span className="font-medium">{event["Event Date"]}</span>
-                    </div>
-                    <div className="flex items-center text-gray-700">
-                      <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mr-4">
-                        <Clock className="w-5 h-5 text-slate-700" />
-                      </div>
-                      <span className="font-medium">{event["Event Time"]}</span>
-                    </div>
-                    <div className="flex items-center text-gray-700">
-                      <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                        <User className="w-5 h-5 text-red-700" />
-                      </div>
-                      <span className="font-medium">{event["Organizer Name"]}</span>
-                    </div>
-                    <div className="flex items-start text-gray-600">
-                      <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mr-4 mt-0.5">
-                        <MapPin className="w-5 h-5 text-slate-700" />
-                      </div>
-                      <span>{event.Address}</span>
-                    </div>
+                  <div className="space-y-3">
+                    {[
+                      { icon: Calendar, text: event["Event Date"], bg: "bg-red-100", color: "text-red-700" },
+                      { icon: Clock, text: event["Event Time"], bg: "bg-slate-100", color: "text-slate-700" },
+                      { icon: User, text: event["Organizer Name"], bg: "bg-red-100", color: "text-red-700" },
+                      { icon: MapPin, text: event.Address, bg: "bg-slate-100", color: "text-slate-700" }
+                    ].map((item, index) => (
+                      <motion.div 
+                        key={index}
+                        className="flex items-center text-gray-700"
+                        initial={{ x: -30, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
+                        whileHover={{ x: 10 }}
+                      >
+                        <motion.div 
+                          className={`w-8 h-8 ${item.bg} rounded-full flex items-center justify-center mr-3`}
+                          whileHover={{ scale: 1.1, rotate: 360 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <item.icon className={`w-4 h-4 ${item.color}`} />
+                        </motion.div>
+                        <span className="font-medium text-sm">{item.text}</span>
+                      </motion.div>
+                    ))}
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Right Column - Action Section */}
-                <div className="text-center space-y-6">
-                  <div className="relative">
-                    <div className="w-32 h-32 mx-auto bg-gradient-to-br from-red-700 to-slate-800 rounded-full flex items-center justify-center mb-6 shadow-2xl">
-                      <Sparkles className="w-16 h-16 text-white" />
-                    </div>
-                    
-                  </div>
+                                  <motion.div 
+                    className="text-center space-y-4"
+                    initial={{ x: 50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 1 }}
+                  >
+                  <motion.div 
+                    className="relative"
+                    animate={{ 
+                      scale: [1, 1.05, 1],
+                      rotate: [0, 5, -5, 0]
+                    }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <motion.div 
+                      className="w-24 h-24 mx-auto bg-gradient-to-br from-red-700 to-slate-800 rounded-full flex items-center justify-center mb-4 shadow-2xl"
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                      >
+                        <Sparkles className="w-12 h-12 text-white" />
+                      </motion.div>
+                    </motion.div>
+                  </motion.div>
                   
-                  <button className="group w-full bg-gradient-to-r from-red-700 to-slate-800 text-white font-bold py-4 px-8 rounded-2xl hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl">
+                  <motion.button 
+                    className="group w-full bg-gradient-to-r from-red-700 to-slate-800 text-white font-bold py-3 px-6 rounded-xl hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
                     <span className="flex items-center justify-center">
                       Join Event
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      <motion.div
+                        className="ml-2"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ArrowRight className="w-5 h-5" />
+                      </motion.div>
                     </span>
-                  </button>
+                  </motion.button>
                   
-                  <div className="flex items-center justify-center space-x-2 text-gray-600">
-                    <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                  <motion.div 
+                    className="flex items-center justify-center space-x-2 text-gray-600"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 1.5 }}
+                  >
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                    </motion.div>
                     <span className="text-sm font-medium">4.8 rating • 234 attendees</span>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Navigation Dots */}
-        <div className="flex justify-center mt-8 space-x-3">
+        <motion.div 
+          className="flex justify-center mt-8 space-x-3"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+        >
           {events.map((_, idx) => (
-            <button
+            <motion.button
               key={idx}
               className={`w-4 h-4 rounded-full transition-all duration-300 ${
                 idx === current
@@ -262,10 +429,12 @@ const Carousel: React.FC = () => {
                   : "bg-gray-300 hover:bg-gray-400"
               }`}
               onClick={() => setCurrent(idx)}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
               aria-label={`Go to event ${idx + 1}`}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -435,10 +604,20 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
   if (!displayEvents || displayEvents.length === 0) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <Sparkles className="w-16 h-16 text-red-400 mx-auto mb-4 animate-spin" />
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          >
+            <Sparkles className="w-16 h-16 text-red-400 mx-auto mb-4" />
+          </motion.div>
           <p className="text-gray-600 text-xl font-medium">No events found.</p>
-        </div>
+        </motion.div>
       </div>
     );
   }
@@ -499,30 +678,69 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
   return (
     <div className="min-h-screen bg-white relative overflow-hidden" id="event">
       {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-40"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-slate-100 rounded-full blur-3xl opacity-40"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-30"></div>
-      </div>
+      <motion.div 
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.div 
+          className="absolute top-0 right-0 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-40"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div 
+          className="absolute bottom-0 left-0 w-96 h-96 bg-slate-100 rounded-full blur-3xl opacity-40"
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            rotate: [360, 180, 0]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div 
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-30"
+          animate={{ 
+            scale: [1, 1.1, 1],
+            rotate: [0, 360]
+          }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        />
+      </motion.div>
 
       <div className="relative z-10 px-4 py-16 sm:py-24">
         <div className="max-w-7xl mx-auto">
           
           {/* Header Section */}
-          <div className="text-center mb-12">
-            
-            
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 text-gray-900">
+          <motion.div 
+            className="text-center mb-8"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <motion.h1 
+              className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 text-gray-900"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               <span className="block mb-2">Explore, Connect</span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-900 via-rose-900 to-slate-800">
                 And Elevate in Tech
               </span>
-            </h1>
+            </motion.h1>
             
-            <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed mb-8">
+            <motion.p 
+              className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               Connect, learn, and grow with the most innovative tech events happening around you
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
           {/* Search Bar */}
           <SearchBar
@@ -533,125 +751,223 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
           />
 
           {/* Search Results Info */}
-          {searchQuery && (
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center px-4 py-2 bg-white border-2 border-gray-200 rounded-full shadow-md">
-                <Search className="w-4 h-4 text-red-700 mr-2" />
-                <span className="text-gray-700 text-sm">
-                  {filteredEvents.length} events found for "{searchQuery}"
-                </span>
-              </div>
-            </div>
-          )}
+          <AnimatePresence>
+            {searchQuery && (
+              <motion.div 
+                className="text-center mb-8"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="inline-flex items-center px-4 py-2 bg-white border-2 border-gray-200 rounded-full shadow-md">
+                  <Search className="w-4 h-4 text-red-700 mr-2" />
+                  <span className="text-gray-700 text-sm">
+                    {filteredEvents.length} events found for "{searchQuery}"
+                  </span>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Events Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
             {filteredEvents.slice(0, eventsToShow).map((event, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`group relative transform transition-all duration-700 hover:scale-105 ${
-                  visibleCards[index] ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                initial={{ opacity: 0, y: 50, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: index * 0.1,
+                  ease: "easeOut"
+                }}
+                whileHover={{ 
+                  y: -10,
+                  scale: 1.02,
+                  transition: { duration: 0.3 }
+                }}
+                className="group relative"
               >
                 {/* Card Glow Effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} rounded-2xl blur-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
+                <motion.div 
+                  className={`absolute inset-0 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} rounded-2xl blur-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300`}
+                  whileHover={{ opacity: 0.2 }}
+                />
                 
                 {/* Card Content */}
-                <div className={`relative bg-white rounded-2xl border-2 ${getEventTypeBgColor(event["Event Type"]).split(' ')[1]} shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden`}>
+                <motion.div 
+                  className={`relative bg-white rounded-2xl border-2 ${getEventTypeBgColor(event["Event Type"]).split(' ')[1]} shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden`}
+                  whileHover={{ boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
+                >
                   
                   {/* Card Header */}
-                  <div className={`h-2 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])}`}></div>
+                  <motion.div 
+                    className={`h-2 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])}`}
+                    whileHover={{ height: "8px" }}
+                    transition={{ duration: 0.3 }}
+                  />
                   
-                  <div className="p-6">
+                  <div className="p-4">
                     {/* Event Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className={`px-3 py-1 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} text-white rounded-full text-xs font-semibold shadow-md`}>
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      <motion.span 
+                        className={`px-2 py-0.5 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} text-white rounded-full text-xs font-semibold shadow-md`}
+                        whileHover={{ scale: 1.1 }}
+                      >
                         {event["Event Type"]}
-                      </span>
-                      <span className="px-3 py-1 bg-gray-100 text-gray-700 border border-gray-200 rounded-full text-xs font-semibold">
+                      </motion.span>
+                      <motion.span 
+                        className="px-2 py-0.5 bg-gray-100 text-gray-700 border border-gray-200 rounded-full text-xs font-semibold"
+                        whileHover={{ scale: 1.1 }}
+                      >
                         {event.Location}
-                      </span>
+                      </motion.span>
                     </div>
 
                     {/* Event Title */}
-                    <h2 className="text-xl font-bold mb-4 text-gray-900 leading-tight group-hover:text-red-800 transition-colors">
+                    <motion.h2 
+                      className="text-lg font-bold mb-3 text-gray-900 leading-tight group-hover:text-red-800 transition-colors"
+                      whileHover={{ color: "#991b1b" }}
+                    >
                       {event["Event Name"]}
-                    </h2>
+                    </motion.h2>
 
                     {/* Event Details */}
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-center text-gray-600">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${getIconBgColor(event["Event Type"])}`}>
-                          <User className={`w-4 h-4 ${getIconColor(event["Event Type"])}`} />
-                        </div>
-                        <span className="text-sm font-medium">{event["Organizer Name"]}</span>
-                      </div>
-                      <div className="flex items-center text-gray-600">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${getIconBgColor(event["Event Type"])}`}>
-                          <Calendar className={`w-4 h-4 ${getIconColor(event["Event Type"])}`} />
-                        </div>
-                        <span className="text-sm">{event["Event Date"]}</span>
-                      </div>
-                      <div className="flex items-center text-gray-600">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${getIconBgColor(event["Event Type"])}`}>
-                          <Clock className={`w-4 h-4 ${getIconColor(event["Event Type"])}`} />
-                        </div>
-                        <span className="text-sm">{event["Event Time"]}</span>
-                      </div>
-                      <div className="flex items-start text-gray-500">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 mt-0.5 ${getIconBgColor(event["Event Type"])}`}>
-                          <MapPin className={`w-4 h-4 ${getIconColor(event["Event Type"])}`} />
-                        </div>
-                        <span className="text-sm">{event.Address}</span>
-                      </div>
+                    <div className="space-y-2 mb-4">
+                      {[
+                        { icon: User, text: event["Organizer Name"] },
+                        { icon: Calendar, text: event["Event Date"] },
+                        { icon: Clock, text: event["Event Time"] },
+                        { icon: MapPin, text: event.Address }
+                      ].map((item, idx) => (
+                        <motion.div 
+                          key={idx}
+                          className="flex items-center text-gray-600"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 + idx * 0.05 }}
+                          whileHover={{ x: 5 }}
+                        >
+                          <motion.div 
+                            className={`w-6 h-6 rounded-full flex items-center justify-center mr-2 ${getIconBgColor(event["Event Type"])}`}
+                            whileHover={{ scale: 1.2, rotate: 360 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <item.icon className={`w-3 h-3 ${getIconColor(event["Event Type"])}`} />
+                          </motion.div>
+                          <span className="text-xs">{item.text}</span>
+                        </motion.div>
+                      ))}
                     </div>
 
                     {/* Action Button */}
-                    <button className={`w-full bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} text-white font-semibold py-3 px-4 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 group`}>
+                    <motion.button 
+                      className={`w-full bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} text-white font-semibold py-2 px-3 rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 group`}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
                       <span className="flex items-center justify-center">
                         Register Now
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                        <motion.div
+                          className="ml-2"
+                          whileHover={{ x: 5 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ArrowRight className="w-3 h-3" />
+                        </motion.div>
                       </span>
-                    </button>
+                    </motion.button>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Load More Button */}
-          {eventsToShow < filteredEvents.length && (
-            <div className="flex justify-center mt-12">
-              <button
-                onClick={handleLoadMore}
-                className="group inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-red-200 rounded-full font-bold text-gray-700 hover:text-red-700 hover:border-red-300 transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl"
+          <AnimatePresence>
+            {eventsToShow < filteredEvents.length && (
+              <motion.div 
+                className="flex justify-center mt-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
               >
-                Load More Events
-                <ArrowRight className="w-5 h-5 ml-3 text-red-500 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          )}
+                <motion.button
+                  onClick={handleLoadMore}
+                  className="group inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-red-200 rounded-full font-bold text-gray-700 hover:text-red-700 hover:border-red-300 transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Load More Events
+                  <motion.div
+                    className="ml-3 text-red-500"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.div>
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* No Results Message */}
-          {filteredEvents.length === 0 && searchQuery && (
-            <div className="text-center py-16">
-              <div className="w-32 h-32 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-6">
-                <Sparkles className="w-16 h-16 text-red-400 opacity-50" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">No events found</h3>
-              <p className="text-gray-600 mb-6">Try adjusting your search terms or browse all events</p>
-              <button
-                onClick={() => {
-                  setSearchQuery("");
-                  setEventsToShow(6); // Reset the number of events to show when clearing the search
-                }}
-                className="bg-gradient-to-r from-red-700 to-slate-800 text-white font-semibold py-3 px-6 rounded-xl hover:scale-105 transform transition-all duration-200 shadow-lg hover:shadow-xl"
+          <AnimatePresence>
+            {filteredEvents.length === 0 && searchQuery && (
+              <motion.div 
+                className="text-center py-16"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.5 }}
               >
-                Show All Events
-              </button>
-            </div>
-          )}
+                <motion.div 
+                  className="w-32 h-32 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-6"
+                  animate={{ 
+                    scale: [1, 1.1, 1],
+                    rotate: [0, 360]
+                  }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                >
+                  <Sparkles className="w-16 h-16 text-red-400 opacity-50" />
+                </motion.div>
+                <motion.h3 
+                  className="text-2xl font-bold text-gray-900 mb-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  No events found
+                </motion.h3>
+                <motion.p 
+                  className="text-gray-600 mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                >
+                  Try adjusting your search terms or browse all events
+                </motion.p>
+                <motion.button
+                  onClick={() => {
+                    setSearchQuery("");
+                    setEventsToShow(6); // Reset the number of events to show when clearing the search
+                  }}
+                  className="bg-gradient-to-r from-red-700 to-slate-800 text-white font-semibold py-3 px-6 rounded-xl hover:scale-105 transform transition-all duration-200 shadow-lg hover:shadow-xl"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Show All Events
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
