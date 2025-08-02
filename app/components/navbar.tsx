@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X, Sparkles } from "lucide-react";
@@ -32,12 +32,122 @@ export default function Navbar() {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
-    return () => {
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isOpen]);
+
+    useEffect(() => {
+        const sections = ['home', 'event', 'eventform'];
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5,
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            let currentActive = "";
+            let highestIntersectionRatio = 0;
+
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.intersectionRatio > highestIntersectionRatio) {
+                        highestIntersectionRatio = entry.intersectionRatio;
+                        currentActive = `#${entry.target.id}`;
+                    }
+                }
+            });
+
+            if (currentActive) {
+                setActiveSection(prevActive => {
+                    if (currentActive !== prevActive) {
+                        return currentActive;
+                    }
+                    return prevActive;
+                });
+            }
+        }, observerOptions);
+
+        sections.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                observer.observe(element);
+            }
+        });
+
+        return () => {
+            sections.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    observer.unobserve(element);
+                }
+            });
+            observer.disconnect();
+        };
+    }, []);
+
+    const handleLinkClick = (href: string) => {
+        setActiveSection(href === '/' ? '#home' : href);
+        setIsOpen(false);
+
+        return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+
+    
     };
   }, [isOpen]);
 
-  // Effect to track the currently visible section and highlight the corresponding link
+
+      
+      
+      const getLinkClasses = (href: string) => {
+        const baseClasses = "px-4 py-2 rounded-full transition-all duration-300 ease-in-out";
+        const activeClasses = "bg-gradient-to-r from-blue-700 to-purple-700 font-semibold text-white shadow-md text-glow-effect hover:scale-105 transform";
+        const hoverClasses = "hover:bg-white/20";
+        const isActive = activeSection === href || (href === '/' && activeSection === '#home');
+        return `${baseClasses} ${isActive ? activeClasses : hoverClasses}`;
+    };
+
+    const getMobileLinkClasses = (href: string) => {
+        const baseClasses = "block py-3 px-6 rounded-md transition-colors duration-300 ease-in-out text-gray-300";
+        const activeClasses = "bg-gray-600 font-bold text-teal-300";
+        const hoverClasses = "hover:bg-gray-600 hover:text-white";
+        const isActive = activeSection === href || (href === '/' && activeSection === '#home');
+        return `${baseClasses} ${isActive ? activeClasses : hoverClasses}`;
+    };
+
+    return (
+        <nav className="fixed top-0 left-0 w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 shadow-lg z-50" aria-label="Main Navigation">
+            <div className="max-w-7xl mx-auto flex justify-between items-center">
+                <Link href="/" className="flex items-center space-x-2" onClick={() => handleLinkClick("/")}>
+                    <img src="/logo.png" alt="Tech Events Logo" className="h-8 w-8 rounded-full" />
+                    <span className="text-2xl font-bold text-glow-effect">Tech Events</span>
+                </Link>
+
+                <ul className="hidden md:flex space-x-2 items-center">
+                    <li><Link href="/" className={getLinkClasses("/")} onClick={() => handleLinkClick("/")}>Home</Link></li>
+                    <li><Link href="#event" className={getLinkClasses("#event")} onClick={() => handleLinkClick("#event")}>View Events</Link></li>
+                    <li><Link href="#eventform" className={getLinkClasses("#eventform")} onClick={() => handleLinkClick("#eventform")}>Add Events</Link></li>
+                    <li>
+                        <Link href="/auth" className="ml-4">
+                            <button className="bg-white text-blue-700 font-semibold px-4 py-2 rounded-full hover:bg-yellow-200 transition">
+                                Login / Signup
+                            </button>
+                        </Link>
+                    </li>
+                </ul>
+
+                <button
+                    className="md:hidden z-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-300"
+                    onClick={() => setIsOpen(!isOpen)}
+                    aria-expanded={isOpen}
+                    aria-controls="mobile-menu"
+                    aria-label="Toggle menu"
+                >
+                    {isOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>
+
   useEffect(() => {
     const sections = ['home', 'event', 'eventform'];
 
@@ -138,6 +248,7 @@ export default function Navbar() {
                 alt="Tech Events Logo"
                 className="relative h-10 w-10 rounded-full border-2 border-white/20 group-hover:border-white/40 transition-all duration-300"
               />
+
             </div>
             <div className="flex items-center space-x-2">
               <span className="text-2xl sm:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-red-900 via-rose-900 to-slate-800">
@@ -215,7 +326,16 @@ export default function Navbar() {
               className={getMobileLinkClasses("#event")}
               onClick={() => handleLinkClick("#event")}
             >
-              <span className="relative z-10">View Events</span>
+
+              <li><Link href="/" className={getMobileLinkClasses("/")} onClick={() => handleLinkClick("/")}>Home</Link></li>
+                <li><Link href="#event" className={getMobileLinkClasses("#event")} onClick={() => handleLinkClick("#event")}>View Events</Link></li>
+                <li><Link href="#eventform" className={getMobileLinkClasses("#eventform")} onClick={() => handleLinkClick("#eventform")}>Add Event</Link></li>
+                <li><Link href="/auth" className={getMobileLinkClasses("/auth")} onClick={() => handleLinkClick("/auth")}>Login / Signup</Link></li>
+            </ul>
+        </nav>
+    );
+
+        <span className="relative z-10">View Events</span>
             </Link>
           </li>
           <li>
@@ -240,4 +360,7 @@ export default function Navbar() {
       </ul>
     </nav>
   );
-}
+
+        
+        
+        }
