@@ -20,14 +20,9 @@ interface SearchBarProps {
   onTagClick?: (tag: string) => void;
 }
 
-// Redesigned Search Bar Component with Red/Black Theme
+// Search Bar Component with Red/Black Theme
 const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSearch, onTagClick }) => {
   const [focusedInput, setFocusedInput] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
 
   const handleSearch = () => {
     if (onSearch) {
@@ -35,15 +30,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSe
     }
   };
 
+  const tags = ['Workshops', 'Tech Events', 'Music', 'Art & Culture', 'Sports', 'Networking'];
+
   return (
-    <div className={`transform transition-all duration-1000 delay-300 w-full max-w-5xl mx-auto mb-12 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+    <div className="w-full max-w-4xl mx-auto mb-8 transform translate-y-0 opacity-100 transition-all duration-800">
       <div className="relative group">
         {/* Search Input Container */}
         <div className={`relative transform transition-all duration-300 ${focusedInput ? 'scale-105' : 'scale-100'}`}>
-          <div className="absolute inset-0 bg-gradient-to-r from-red-700 to-slate-800 rounded-2xl blur-sm opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-red-700 to-slate-800 rounded-2xl blur-sm opacity-20 group-hover:opacity-30 transition-opacity duration-300" />
           <div className="relative bg-white rounded-2xl border-2 border-gray-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-            <div className="flex items-center px-6 py-5">
-              <Search className={`w-6 h-6 transition-colors duration-300 mr-4 ${focusedInput ? 'text-red-700' : 'text-gray-400'}`} />
+            <div className="flex items-center px-4 py-3">
+              <div className={`transition-colors duration-300 mr-3 ${focusedInput ? 'text-red-700' : 'text-gray-400'}`}>
+                <Search className="w-5 h-5" />
+              </div>
               <input
                 type="text"
                 placeholder="Search events by city, name, or category..."
@@ -52,11 +51,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSe
                 onFocus={() => setFocusedInput(true)}
                 onBlur={() => setFocusedInput(false)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                className="flex-1 text-lg text-gray-800 placeholder-gray-500 bg-transparent focus:outline-none font-medium"
+                className="flex-1 text-base text-gray-800 placeholder-gray-500 bg-transparent focus:outline-none font-medium"
               />
               <button
                 onClick={handleSearch}
-                className="ml-4 bg-gradient-to-r from-red-800 to-slate-900 text-white px-8 py-3 rounded-xl font-semibold hover:from-red-900 hover:to-slate-800 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="ml-3 bg-gradient-to-r from-red-800 to-slate-900 text-white px-6 py-2 rounded-lg font-semibold hover:from-red-900 hover:to-slate-800 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 Search
               </button>
@@ -66,8 +65,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSe
       </div>
 
       {/* Quick Filter Tags */}
-      <div className="flex flex-wrap justify-center gap-3 mt-8">
-        {['Workshops', 'Tech Events', 'Music', 'Art & Culture', 'Sports', 'Networking'].map((tag, index) => (
+      <div className="flex flex-wrap justify-center gap-2 mt-6">
+        {tags.map((tag, index) => (
           <button
             key={tag}
             onClick={() => {
@@ -75,8 +74,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSe
                 onTagClick(tag.toLowerCase());
               }
             }}
-            className={`px-6 py-2 rounded-full bg-white border-2 border-gray-200 text-gray-700 hover:border-red-300 hover:bg-red-50 hover:text-red-700 hover:scale-105 transform transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md`}
-            style={{ animationDelay: `${500 + index * 100}ms` }}
+            className="px-4 py-1.5 rounded-full bg-white border-2 border-gray-200 text-gray-700 hover:border-red-300 hover:bg-red-50 hover:text-red-700 transition-all duration-200 text-xs font-medium shadow-sm hover:shadow-md hover:scale-110 hover:-translate-y-0.5"
           >
             {tag}
           </button>
@@ -86,17 +84,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, setSearchQuery, onSe
   );
 };
 
-// Redesigned Carousel component with Red/Black Theme
+// Carousel component with Red/Black Theme
 interface CarouselProps {
   onJoinEvent: () => void;
 }
+
 const Carousel: React.FC<CarouselProps> = ({ onJoinEvent }) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [current, setCurrent] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
     // Sample data for demo
     const sampleEvents: Event[] = [
       {
@@ -142,7 +139,7 @@ const Carousel: React.FC<CarouselProps> = ({ onJoinEvent }) => {
     return (
       <div className="w-full min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-red-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-red-400 border-t-transparent rounded-full mx-auto mb-4 animate-spin" />
           <p className="text-gray-600 text-xl font-medium">Loading live events...</p>
         </div>
       </div>
@@ -152,104 +149,104 @@ const Carousel: React.FC<CarouselProps> = ({ onJoinEvent }) => {
 
   return (
     <div className="relative w-full min-h-screen bg-white overflow-hidden" id="home">
-      {/* Subtle Background Elements */}
+      {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-red-100 rounded-full blur-3xl opacity-30"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-gray-100 rounded-full blur-3xl opacity-30"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute top-20 left-10 w-64 h-64 bg-red-100 rounded-full blur-3xl opacity-30 animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-gray-100 rounded-full blur-3xl opacity-30 animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-20 animate-pulse" />
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-12">
         {/* Header Section */}
-        <div className={`text-center mb-12 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <div className="inline-flex items-center px-6 py-3 bg-white border-2 border-red-200 rounded-full shadow-lg mb-6">
-            <Play className="w-5 h-5 text-red-900 mr-3 animate-pulse" />
-            <span className="text-red-900 font-semibold">LIVE NOW</span>
+        <div className="text-center mb-12 animate-fade-in-up">
+          <div className="inline-flex items-center px-6 py-3 bg-white border-2 border-red-200 rounded-full shadow-lg mb-6 hover:scale-105 transition-transform duration-300">
+            <div className="animate-spin">
+              <Play className="w-5 h-5 text-red-500 mr-3" />
+            </div>
+            <span className="text-red-600 font-semibold">LIVE NOW</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 mb-4">
+
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-3">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-900 to-slate-800">
               Live Events
             </span>
           </h1>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+
+          <p className="text-gray-600 text-base max-w-xl mx-auto">
             Join these happening events right now and connect with like-minded people
           </p>
         </div>
 
         {/* Event Card */}
-        <div className={`relative w-full max-w-4xl transform transition-all duration-700 ${isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}>
-          <div className="absolute inset-0 bg-gradient-to-r from-red-200 to-slate-200 rounded-3xl blur-xl opacity-40"></div>
+        <div className="relative w-full max-w-3xl group">
+          <div className="absolute inset-0 bg-gradient-to-r from-red-200 to-slate-200 rounded-3xl blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-300" />
+          
           <div className="relative bg-white rounded-3xl border-2 border-gray-100 shadow-2xl overflow-hidden">
-
-            {/* Event Content */}
             <div className="p-8 sm:p-12">
               <div className="grid md:grid-cols-2 gap-8 items-center">
-
+                
                 {/* Left Column - Event Details */}
                 <div className="space-y-6">
                   <div className="flex flex-wrap gap-3 mb-4">
-                    <span className="px-4 py-2 bg-gradient-to-r from-red-900 to-slate-800 text-white rounded-full text-sm font-semibold shadow-lg">
+                    <span className="px-4 py-2 bg-gradient-to-r from-red-900 to-slate-800 text-white rounded-full text-sm font-semibold shadow-lg hover:scale-110 transition-transform duration-200">
                       {event["Event Type"]}
                     </span>
-                    <span className="px-4 py-2 bg-gradient-to-r from-slate-700 to-red-800 text-white rounded-full text-sm font-semibold shadow-lg">
+                    <span className="px-4 py-2 bg-gradient-to-r from-slate-700 to-red-800 text-white rounded-full text-sm font-semibold shadow-lg hover:scale-110 transition-transform duration-200">
                       {event.Location}
                     </span>
                   </div>
 
-                  <h2 className="text-3xl sm:text-4xl font-black text-gray-900 leading-tight">
+                  <h2 className="text-2xl sm:text-3xl font-black text-gray-900 leading-tight">
                     {event["Event Name"]}
                   </h2>
 
-                  <div className="space-y-4">
-                    <div className="flex items-center text-gray-700">
-                      <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                        <Calendar className="w-5 h-5 text-red-900" />
+                  <div className="space-y-3">
+                    {[
+                      { icon: Calendar, text: event["Event Date"], bg: "bg-red-100", color: "text-red-700" },
+                      { icon: Clock, text: event["Event Time"], bg: "bg-slate-100", color: "text-slate-700" },
+                      { icon: User, text: event["Organizer Name"], bg: "bg-red-100", color: "text-red-700" },
+                      { icon: MapPin, text: event.Address, bg: "bg-slate-100", color: "text-slate-700" }
+                    ].map((item, index) => (
+                      <div 
+                        key={index}
+                        className="flex items-center text-gray-700 hover:translate-x-2 transition-transform duration-200"
+                      >
+                        <div className={`w-8 h-8 ${item.bg} rounded-full flex items-center justify-center mr-3 hover:scale-110 transition-transform duration-200`}>
+                          <item.icon className={`w-4 h-4 ${item.color}`} />
+                        </div>
+                        <span className="font-medium text-sm">{item.text}</span>
                       </div>
-                      <span className="font-medium">{event["Event Date"]}</span>
-                    </div>
-                    <div className="flex items-center text-gray-700">
-                      <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mr-4">
-                        <Clock className="w-5 h-5 text-slate-700" />
-                      </div>
-                      <span className="font-medium">{event["Event Time"]}</span>
-                    </div>
-                    <div className="flex items-center text-gray-700">
-                      <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                        <User className="w-5 h-5 text-red-700" />
-                      </div>
-                      <span className="font-medium">{event["Organizer Name"]}</span>
-                    </div>
-                    <div className="flex items-start text-gray-600">
-                      <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mr-4 mt-0.5">
-                        <MapPin className="w-5 h-5 text-slate-700" />
-                      </div>
-                      <span>{event.Address}</span>
-                    </div>
+                    ))}
                   </div>
                 </div>
 
                 {/* Right Column - Action Section */}
                 <div className="text-center space-y-6">
                   <div className="relative">
-                    <div className="w-32 h-32 mx-auto bg-gradient-to-br from-red-700 to-slate-800 rounded-full flex items-center justify-center mb-6 shadow-2xl">
-                      <Sparkles className="w-16 h-16 text-white" />
+                    <div className="w-32 h-32 mx-auto bg-gradient-to-br from-red-700 to-slate-800 rounded-full flex items-center justify-center mb-6 shadow-2xl hover:scale-110 transition-transform duration-300">
+                      <div className="animate-spin">
+                        <Sparkles className="w-16 h-16 text-white" />
+                      </div>
                     </div>
-
                   </div>
 
-                  {/* Button to open the registration modal */}
-                  <button
+                  <button 
                     onClick={onJoinEvent}
                     className="group w-full bg-gradient-to-r from-red-700 to-slate-800 text-white font-bold py-4 px-8 rounded-2xl hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl"
                   >
                     <span className="flex items-center justify-center">
                       Join Event
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      <div className="ml-2 group-hover:translate-x-1 transition-transform duration-200">
+                        <ArrowRight className="w-5 h-5" />
+                      </div>
                     </span>
                   </button>
 
+                  {/* Rating & Attendance */}
                   <div className="flex items-center justify-center space-x-2 text-gray-600">
-                    <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                    <div className="animate-spin">
+                      <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                    </div>
                     <span className="text-sm font-medium">4.8 rating • 234 attendees</span>
                   </div>
                 </div>
@@ -263,7 +260,7 @@ const Carousel: React.FC<CarouselProps> = ({ onJoinEvent }) => {
           {events.map((_, idx) => (
             <button
               key={idx}
-              className={`w-4 h-4 rounded-full transition-all duration-300 ${
+              className={`w-4 h-4 rounded-full transition-all duration-300 hover:scale-125 ${
                 idx === current
                   ? "bg-gradient-to-r from-red-700 to-slate-800 scale-125 shadow-lg"
                   : "bg-gray-300 hover:bg-gray-400"
@@ -278,20 +275,17 @@ const Carousel: React.FC<CarouselProps> = ({ onJoinEvent }) => {
   );
 };
 
-// Redesigned EventGrid with Red/Black Theme
+// EventGrid with Red/Black Theme
 interface EventGridProps {
   events?: Event[];
   onRegisterNow: () => void;
 }
-const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
-  // State for search query and visible cards for animation
-  const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
 
-  // State to manage pagination
+const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
+  const [searchQuery, setSearchQuery] = useState("");
   const [eventsToShow, setEventsToShow] = useState(6);
 
-  // Sample events for demo (extended to demonstrate pagination)
+  // Sample events for demo
   const sampleEvents: Event[] = [
     {
       "Event Name": "React Native Workshop",
@@ -364,42 +358,6 @@ const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
       "Event Date": "2025-08-30",
       "Event Time": "03:00 PM",
       "Event Type": "Music"
-    },
-    {
-      "Event Name": "Art and AI Exhibition",
-      Location: "Kolkata",
-      Address: "Cultural Center, Park Street",
-      "Organizer Name": "ArtTech Collective",
-      "Event Date": "2025-09-05",
-      "Event Time": "11:00 AM",
-      "Event Type": "Art & Culture"
-    },
-    {
-      "Event Name": "Figma for Beginners",
-      Location: "Bangalore",
-      Address: "Creative Hub, Koramangala",
-      "Organizer Name": "Design Wizards",
-      "Event Date": "2025-09-10",
-      "Event Time": "04:00 PM",
-      "Event Type": "Workshop"
-    },
-    {
-      "Event Name": "Cybersecurity Conclave",
-      Location: "Mumbai",
-      Address: "Security HQ, BKC",
-      "Organizer Name": "Cyber Warriors",
-      "Event Date": "2025-09-15",
-      "Event Time": "09:00 AM",
-      "Event Type": "Conference"
-    },
-    {
-      "Event Name": "Startup Founders' Mixer",
-      Location: "Delhi",
-      Address: "The Terrace, Hauz Khas",
-      "Organizer Name": "Founders Club",
-      "Event Date": "2025-09-18",
-      "Event Time": "07:00 PM",
-      "Event Type": "Networking"
     }
   ];
 
@@ -413,29 +371,16 @@ const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
     event["Organizer Name"].toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Effect to reset animation state when filtered events change
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisibleCards(new Array(filteredEvents.length).fill(true));
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [filteredEvents.length]);
-
-  // Handler for when the user clicks the main search button
   const handleSearch = () => {
-    // Reset eventsToShow to the initial value for a new search
     setEventsToShow(6);
   };
 
-  // Handler for when the user clicks a tag button
   const handleTagClick = (tag: string) => {
     setSearchQuery(tag);
-    setEventsToShow(6); // Reset eventsToShow when a new tag is clicked
+    setEventsToShow(6);
   };
 
-  // Handler for the "Load More" button
   const handleLoadMore = () => {
-    // Increment the number of events to show by 6
     setEventsToShow(prev => prev + 6);
   };
 
@@ -443,14 +388,16 @@ const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <Sparkles className="w-16 h-16 text-red-900 mx-auto mb-4 animate-spin" />
+          <div className="animate-spin">
+            <Sparkles className="w-16 h-16 text-red-900 mx-auto mb-4" />
+          </div>
           <p className="text-gray-600 text-xl font-medium">No events found.</p>
         </div>
       </div>
     );
   }
 
-  // Consistent color mapping for a unified theme
+  // Color mapping functions
   const getEventTypeColor = (type: string) => {
     const colors = {
       'Workshop': 'from-red-700 to-slate-800',
@@ -507,18 +454,16 @@ const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
     <div className="min-h-screen bg-white relative overflow-hidden" id="event">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-40"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-slate-100 rounded-full blur-3xl opacity-40"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-30"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-40 animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-slate-100 rounded-full blur-3xl opacity-40 animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-red-100 rounded-full blur-3xl opacity-30 animate-pulse" />
       </div>
 
       <div className="relative z-10 px-4 py-16 sm:py-24">
         <div className="max-w-7xl mx-auto">
 
           {/* Header Section */}
-          <div className="text-center mb-12">
-
-
+          <div className="text-center mb-12 animate-fade-in-up">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 text-gray-900">
               <span className="block mb-2">Explore, Connect</span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-900 via-rose-900 to-slate-800">
@@ -541,7 +486,7 @@ const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
 
           {/* Search Results Info */}
           {searchQuery && (
-            <div className="text-center mb-8">
+            <div className="text-center mb-8 animate-fade-in">
               <div className="inline-flex items-center px-4 py-2 bg-white border-2 border-gray-200 rounded-full shadow-md">
                 <Search className="w-4 h-4 text-red-700 mr-2" />
                 <span className="text-gray-700 text-sm">
@@ -552,76 +497,68 @@ const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
           )}
 
           {/* Events Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredEvents.slice(0, eventsToShow).map((event, index) => (
               <div
                 key={index}
-                className={`group relative transform transition-all duration-700 hover:scale-105 ${
-                  visibleCards[index] ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                className="group relative animate-fade-in-up hover:-translate-y-2 hover:scale-102 transition-all duration-300"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Card Glow Effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} rounded-2xl blur-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} rounded-2xl blur-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300`} />
 
                 {/* Card Content */}
                 <div className={`relative bg-white rounded-2xl border-2 ${getEventTypeBgColor(event["Event Type"]).split(' ')[1]} shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden`}>
 
                   {/* Card Header */}
-                  <div className={`h-2 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])}`}></div>
+                  <div className={`h-2 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} group-hover:h-3 transition-all duration-300`} />
 
                   <div className="p-6">
                     {/* Event Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className={`px-3 py-1 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} text-white rounded-full text-xs font-semibold shadow-md`}>
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      <span className={`px-2 py-0.5 bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} text-white rounded-full text-xs font-semibold shadow-md hover:scale-110 transition-transform duration-200`}>
                         {event["Event Type"]}
                       </span>
-                      <span className="px-3 py-1 bg-gray-100 text-gray-700 border border-gray-200 rounded-full text-xs font-semibold">
+                      <span className="px-2 py-0.5 bg-gray-100 text-gray-700 border border-gray-200 rounded-full text-xs font-semibold hover:scale-110 transition-transform duration-200">
                         {event.Location}
                       </span>
                     </div>
 
                     {/* Event Title */}
-                    <h2 className="text-xl font-bold mb-4 text-gray-900 leading-tight group-hover:text-red-800 transition-colors">
+                    <h2 className="text-lg font-bold mb-3 text-gray-900 leading-tight group-hover:text-red-800 transition-colors">
                       {event["Event Name"]}
                     </h2>
 
                     {/* Event Details */}
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-center text-gray-600">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${getIconBgColor(event["Event Type"])}`}>
-                          <User className={`w-4 h-4 ${getIconColor(event["Event Type"])}`} />
+                    <div className="space-y-2 mb-4">
+                      {[
+                        { icon: User, text: event["Organizer Name"] },
+                        { icon: Calendar, text: event["Event Date"] },
+                        { icon: Clock, text: event["Event Time"] },
+                        { icon: MapPin, text: event.Address }
+                      ].map((item, idx) => (
+                        <div 
+                          key={idx}
+                          className="flex items-center text-gray-600 hover:translate-x-1 transition-transform duration-200"
+                        >
+                          <div className={`w-6 h-6 rounded-full flex items-center justify-center mr-2 ${getIconBgColor(event["Event Type"])} hover:scale-125 transition-transform duration-200`}>
+                            <item.icon className={`w-3 h-3 ${getIconColor(event["Event Type"])}`} />
+                          </div>
+                          <span className="text-xs">{item.text}</span>
                         </div>
-                        <span className="text-sm font-medium">{event["Organizer Name"]}</span>
-                      </div>
-                      <div className="flex items-center text-gray-600">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${getIconBgColor(event["Event Type"])}`}>
-                          <Calendar className={`w-4 h-4 ${getIconColor(event["Event Type"])}`} />
-                        </div>
-                        <span className="text-sm">{event["Event Date"]}</span>
-                      </div>
-                      <div className="flex items-center text-gray-600">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${getIconBgColor(event["Event Type"])}`}>
-                          <Clock className={`w-4 h-4 ${getIconColor(event["Event Type"])}`} />
-                        </div>
-                        <span className="text-sm">{event["Event Time"]}</span>
-                      </div>
-                      <div className="flex items-start text-gray-500">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 mt-0.5 ${getIconBgColor(event["Event Type"])}`}>
-                          <MapPin className={`w-4 h-4 ${getIconColor(event["Event Type"])}`} />
-                        </div>
-                        <span className="text-sm">{event.Address}</span>
-                      </div>
+                      ))}
                     </div>
 
-                    {/* Action Button to open the registration modal */}
-                    <button
+                    {/* Action Button */}
+                    <button 
                       onClick={onRegisterNow}
                       className={`w-full bg-gradient-to-r ${getEventTypeColor(event["Event Type"])} text-white font-semibold py-3 px-4 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 group`}
                     >
                       <span className="flex items-center justify-center">
                         Register Now
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                        <div className="ml-2 group-hover:translate-x-1 transition-transform duration-200">
+                          <ArrowRight className="w-3 h-3" />
+                        </div>
                       </span>
                     </button>
                   </div>
@@ -632,29 +569,31 @@ const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
 
           {/* Load More Button */}
           {eventsToShow < filteredEvents.length && (
-            <div className="flex justify-center mt-12">
+            <div className="flex justify-center mt-12 animate-fade-in">
               <button
                 onClick={handleLoadMore}
                 className="group inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-red-200 rounded-full font-bold text-gray-700 hover:text-red-700 hover:border-red-300 transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl"
               >
                 Load More Events
-                <ArrowRight className="w-5 h-5 ml-3 text-red-500 group-hover:translate-x-1 transition-transform" />
+                <div className="ml-3 text-red-500 group-hover:translate-x-1 transition-transform duration-200">
+                  <ArrowRight className="w-5 h-5" />
+                </div>
               </button>
             </div>
           )}
 
           {/* No Results Message */}
           {filteredEvents.length === 0 && searchQuery && (
-            <div className="text-center py-16">
+            <div className="text-center py-16 animate-fade-in">
               <div className="w-32 h-32 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-6">
-                <Sparkles className="w-16 h-16 text-red-400 opacity-50" />
+                <Sparkles className="w-16 h-16 text-red-400 opacity-50 animate-pulse" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">No events found</h3>
               <p className="text-gray-600 mb-6">Try adjusting your search terms or browse all events</p>
               <button
                 onClick={() => {
                   setSearchQuery("");
-                  setEventsToShow(6); // Reset the number of events to show when clearing the search
+                  setEventsToShow(6);
                 }}
                 className="bg-gradient-to-r from-red-700 to-slate-800 text-white font-semibold py-3 px-6 rounded-xl hover:scale-105 transform transition-all duration-200 shadow-lg hover:shadow-xl"
               >
@@ -668,46 +607,42 @@ const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
   );
 };
 
-
-// New Registration Form Modal Component
+// Registration Form Modal Component
 interface RegistrationFormModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
 const RegistrationFormModal: React.FC<RegistrationFormModalProps> = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
 
-  // Handle form field changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError(''); // Clear error on change
+    setError('');
   };
 
-  // Handle form submission
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.phone) {
       setError('Please fill in all fields.');
       return;
     }
-    // Simulate API call or form submission
     console.log('Form submitted:', formData);
     setIsSubmitted(true);
-    // Automatically close the modal and reset after a delay
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: '', email: '', phone: '' });
       onClose();
-    }, 3000); // Confirmation message for 3 seconds
+    }, 3000);
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70 backdrop-blur-sm transition-opacity duration-300">
-      <div className="relative bg-slate-900 text-white rounded-3xl p-8 sm:p-12 max-w-lg w-full shadow-2xl border border-red-900 transform scale-95 opacity-0 animate-fade-in-up">
+      <div className="relative bg-slate-900 text-white rounded-3xl p-8 sm:p-12 max-w-lg w-full shadow-2xl border border-red-900 transform transition-all duration-300 animate-fade-in-up">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -719,7 +654,9 @@ const RegistrationFormModal: React.FC<RegistrationFormModalProps> = ({ isOpen, o
 
         {isSubmitted ? (
           <div className="text-center py-10 animate-fade-in">
-            <Sparkles size={64} className="text-red-500 mx-auto mb-4 animate-pulse" />
+            <div className="animate-pulse">
+              <Sparkles size={64} className="text-red-500 mx-auto mb-4" />
+            </div>
             <h3 className="text-3xl font-bold text-red-200 mb-2">Registration Successful!</h3>
             <p className="text-gray-300">You have been registered for the event. See you there!</p>
           </div>
@@ -807,23 +744,35 @@ const RegistrationFormModal: React.FC<RegistrationFormModalProps> = ({ isOpen, o
   );
 };
 
-
-// Main App component to render all other components and manage modal state
+// Main App component
 const App: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
 
-  const handleSearch = () => {
-    // This is a placeholder for search logic if needed at this level
-  };
-  const handleTagClick = (tag: string) => {
-    // This is a placeholder for tag click logic if needed at this level
-  };
-
   return (
     <div className="font-sans antialiased text-gray-800 bg-white min-h-screen">
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+          from { transform: translateY(30px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.8s ease-out forwards;
+        }
+        .animate-fade-in-up {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .scale-102 {
+          transform: scale(1.02);
+        }
+      `}</style>
+      
       <Carousel onJoinEvent={handleOpenModal} />
       <EventGrid onRegisterNow={handleOpenModal} />
       <RegistrationFormModal isOpen={isModalOpen} onClose={handleCloseModal} />
@@ -832,4 +781,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
