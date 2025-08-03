@@ -103,11 +103,11 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-rose-500/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '4s' }}></div>
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
-        <div className={`text-center mb-12 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6">
+        <div className={`text-center mb-8 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-700 to-gray-900">
               {initialEvent ? "Update" : "Create"}
             </span>
@@ -116,7 +116,7 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
               Your Events
             </span>
           </h1>
-          <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed font-inter">
+          <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-inter">
             Host amazing events and connect with the community
           </p>
         </div>
@@ -132,15 +132,15 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
               {/* Form Header accent */}
               <div className={`h-2 bg-gradient-to-r ${getEventTypeColor(eventData.eventType)}`}></div>
               
-              <div className="p-8 sm:p-12">
-                <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="p-6 sm:p-8">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   
                   {/* Row 1: Event Name & Location */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Event Name */}
                     <div className="space-y-2">
-                      <label className="flex items-center text-gray-700 font-semibold text-lg mb-3">
-                        <Sparkles className="w-5 h-5 text-red-900 mr-2" />
+                      <label className="flex items-center text-gray-700 font-semibold text-base mb-2">
+                        <Sparkles className="w-4 h-4 text-red-900 mr-2" />
                         Event Name
                       </label>
                       <div className="relative">
@@ -152,7 +152,7 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
                           onChange={handleChange}
                           onFocus={() => setFocusedField('eventName')}
                           onBlur={() => setFocusedField(null)}
-                          className={`w-full p-4 bg-white border-2 rounded-xl text-gray-800 placeholder-gray-500 font-medium transition-all duration-300 focus:outline-none ${
+                          className={`w-full p-3 bg-white border-2 rounded-lg text-gray-800 placeholder-gray-500 font-medium transition-all duration-300 focus:outline-none ${
                             focusedField === 'eventName' 
                               ? 'border-red-900 shadow-lg shadow-red-500/25 scale-[1.01]' 
                               : 'border-gray-200 hover:border-gray-300'
@@ -164,8 +164,8 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
 
                     {/* Location */}
                     <div className="space-y-2">
-                      <label className="flex items-center text-gray-700 font-semibold text-lg mb-3">
-                        <MapPin className="w-5 h-5 text-gray-900 mr-2" />
+                      <label className="flex items-center text-gray-700 font-semibold text-base mb-2">
+                        <MapPin className="w-4 h-4 text-gray-900 mr-2" />
                         Location
                       </label>
                       <div className="relative">
@@ -177,7 +177,7 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
                           onChange={handleChange}
                           onFocus={() => setFocusedField('location')}
                           onBlur={() => setFocusedField(null)}
-                          className={`w-full p-4 bg-white border-2 rounded-xl text-gray-800 placeholder-gray-500 font-medium transition-all duration-300 focus:outline-none ${
+                          className={`w-full p-3 bg-white border-2 rounded-lg text-gray-800 placeholder-gray-500 font-medium transition-all duration-300 focus:outline-none ${
                             focusedField === 'location' 
                               ? 'border-gray-900 shadow-lg shadow-gray-900/25 scale-[1.01]' 
                               : 'border-gray-200 hover:border-gray-300'
@@ -190,8 +190,8 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
 
                   {/* Row 2: Full Address */}
                   <div className="space-y-2">
-                    <label className="flex items-center text-gray-700 font-semibold text-lg mb-3">
-                      <MapPin className="w-5 h-5 text-rose-900 mr-2" />
+                    <label className="flex items-center text-gray-700 font-semibold text-base mb-2">
+                      <MapPin className="w-4 h-4 text-rose-900 mr-2" />
                       Full Address
                     </label>
                     <div className="relative">
@@ -203,7 +203,7 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
                         onChange={handleChange}
                         onFocus={() => setFocusedField('address')}
                         onBlur={() => setFocusedField(null)}
-                        className={`w-full p-4 bg-white border-2 rounded-xl text-gray-800 placeholder-gray-500 font-medium transition-all duration-300 focus:outline-none ${
+                        className={`w-full p-3 bg-white border-2 rounded-lg text-gray-800 placeholder-gray-500 font-medium transition-all duration-300 focus:outline-none ${
                           focusedField === 'address' 
                             ? 'border-rose-900 shadow-lg shadow-rose-500/25 scale-[1.01]' 
                             : 'border-gray-200 hover:border-gray-300'
@@ -214,11 +214,11 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
                   </div>
 
                   {/* Row 3: Organizer & Event Type */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Organizer */}
                     <div className="space-y-2">
-                      <label className="flex items-center text-gray-700 font-semibold text-lg mb-3">
-                        <User className="w-5 h-5 text-red-900 mr-2" />
+                      <label className="flex items-center text-gray-700 font-semibold text-base mb-2">
+                        <User className="w-4 h-4 text-red-900 mr-2" />
                         Organizer Name
                       </label>
                       <div className="relative">
@@ -230,7 +230,7 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
                           onChange={handleChange}
                           onFocus={() => setFocusedField('organizer')}
                           onBlur={() => setFocusedField(null)}
-                          className={`w-full p-4 bg-white border-2 rounded-xl text-gray-800 placeholder-gray-500 font-medium transition-all duration-300 focus:outline-none ${
+                          className={`w-full p-3 bg-white border-2 rounded-lg text-gray-800 placeholder-gray-500 font-medium transition-all duration-300 focus:outline-none ${
                             focusedField === 'organizer' 
                               ? 'border-red-900 shadow-lg shadow-red-500/25 scale-[1.01]' 
                               : 'border-gray-200 hover:border-gray-300'
@@ -242,8 +242,8 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
 
                     {/* Event Type */}
                     <div className="space-y-2">
-                      <label className="flex items-center text-gray-700 font-semibold text-lg mb-3">
-                        <Sparkles className="w-5 h-5 text-black mr-2" />
+                      <label className="flex items-center text-gray-700 font-semibold text-base mb-2">
+                        <Sparkles className="w-4 h-4 text-black mr-2" />
                         Event Type
                       </label>
                       <div className="relative">
@@ -253,7 +253,7 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
                           onChange={handleChange}
                           onFocus={() => setFocusedField('eventType')}
                           onBlur={() => setFocusedField(null)}
-                          className={`w-full p-4 bg-white border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none appearance-none cursor-pointer ${
+                          className={`w-full p-3 bg-white border-2 rounded-lg text-gray-800 font-medium transition-all duration-300 focus:outline-none appearance-none cursor-pointer ${
                             focusedField === 'eventType' 
                               ? 'border-black shadow-lg shadow-black/25 scale-[1.01]' 
                               : 'border-gray-200 hover:border-gray-300'
@@ -276,11 +276,11 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
                   </div>
 
                   {/* Row 4: Date & Time */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Date */}
                     <div className="space-y-2">
-                      <label className="flex items-center text-gray-700 font-semibold text-lg mb-3">
-                        <Calendar className="w-5 h-5 text-rose-900 mr-2" />
+                      <label className="flex items-center text-gray-700 font-semibold text-base mb-2">
+                        <Calendar className="w-4 h-4 text-rose-900 mr-2" />
                         Event Date
                       </label>
                       <div className="relative">
@@ -291,7 +291,7 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
                           onChange={handleChange}
                           onFocus={() => setFocusedField('date')}
                           onBlur={() => setFocusedField(null)}
-                          className={`w-full p-4 bg-white border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none ${
+                          className={`w-full p-3 bg-white border-2 rounded-lg text-gray-800 font-medium transition-all duration-300 focus:outline-none ${
                             focusedField === 'date' 
                               ? 'border-rose-900 shadow-lg shadow-rose-500/25 scale-[1.01]' 
                               : 'border-gray-200 hover:border-gray-300'
@@ -303,8 +303,8 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
 
                     {/* Time */}
                     <div className="space-y-2">
-                      <label className="flex items-center text-gray-700 font-semibold text-lg mb-3">
-                        <Clock className="w-5 h-5 text-gray-800 mr-2" />
+                      <label className="flex items-center text-gray-700 font-semibold text-base mb-2">
+                        <Clock className="w-4 h-4 text-gray-800 mr-2" />
                         Event Time
                       </label>
                       <div className="relative">
@@ -315,7 +315,7 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
                           onChange={handleChange}
                           onFocus={() => setFocusedField('time')}
                           onBlur={() => setFocusedField(null)}
-                          className={`w-full p-4 bg-white border-2 rounded-xl text-gray-800 font-medium transition-all duration-300 focus:outline-none ${
+                          className={`w-full p-3 bg-white border-2 rounded-lg text-gray-800 font-medium transition-all duration-300 focus:outline-none ${
                             focusedField === 'time' 
                               ? 'border-gray-800 shadow-lg shadow-gray-800/25 scale-[1.01]' 
                               : 'border-gray-200 hover:border-gray-300'
@@ -327,23 +327,23 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
                   </div>
 
                   {/* Submit Button */}
-                  <div className="flex justify-center pt-8">
+                  <div className="flex justify-center pt-6">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className={`group relative px-12 py-4 bg-gradient-to-r ${getEventTypeColor(eventData.eventType)} text-white font-bold text-lg rounded-2xl shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${
+                      className={`group relative px-10 py-3 bg-gradient-to-r ${getEventTypeColor(eventData.eventType)} text-white font-bold text-base rounded-xl shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${
                         !isSubmitting ? 'hover:scale-105 transform' : ''
                       }`}
                     >
                       <span className="relative z-10 flex items-center justify-center">
                         {isSubmitting ? (
                           <>
-                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
                             Saving...
                           </>
                         ) : (
                           <>
-                            {initialEvent ? <Edit className="w-5 h-5 mr-3" /> : <Plus className="w-5 h-5 mr-3" />}
+                            {initialEvent ? <Edit className="w-4 h-4 mr-3" /> : <Plus className="w-4 h-4 mr-3" />}
                             {initialEvent ? "Update Event" : "Create Event"}
                           </>
                         )}
@@ -356,12 +356,12 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
 
                   {/* Event Preview Card */}
                   {eventData.eventName && (
-                    <div className="mt-12 p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200">
-                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
-                        <Sparkles className="w-5 h-5 text-red-900 mr-2" />
+                    <div className="mt-8 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+                      <h3 className="text-base font-bold text-gray-800 mb-3 flex items-center">
+                        <Sparkles className="w-4 h-4 text-red-900 mr-2" />
                         Event Preview
                       </h3>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                         <div className="flex items-center text-gray-600">
                           <span className="font-medium">Name:</span>
                           <span className="ml-2">{eventData.eventName}</span>
