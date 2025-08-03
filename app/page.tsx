@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
-import EventGrid, { Carousel } from "./components/event";
+import EventGrid from "./components/event";
+// import Carousel from "./components/event"; // Changed to default import
 import EventForm from "./components/eventform";
 import Navbar from "./components/navbar";
 import Hero from "./components/Hero";
@@ -37,7 +38,7 @@ export default function Home() {
         <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
             <Navbar />
             <Hero searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            <Carousel />
+            {/* <Carousel /> */}
             <EventGrid events={filteredEvents || []} />
             <EventForm onSave={handleSaveEvent} />
             <Footer />
