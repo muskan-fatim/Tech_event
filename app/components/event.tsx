@@ -10,6 +10,7 @@ interface Event {
   "Event Date": string;
   "Event Time": string;
   "Event Type": string;
+  isPastEvent?: boolean;
 }
 
 interface SearchBarProps {
@@ -478,26 +479,26 @@ const EventGrid: React.FC<EventGridProps> = ({ events, onRegisterNow }) => {
 
   const getIconBgColor = (type: string) => {
     const colors = {
-        'Workshop': 'bg-red-100',
-        'Conference': 'bg-slate-100',
-        'Meetup': 'bg-red-100',
-        'Networking': 'bg-slate-100',
-        'Music': 'bg-red-100',
-        'Art & Culture': 'bg-slate-100',
-        'default': 'bg-gray-100'
+      'Workshop': 'bg-red-100',
+      'Conference': 'bg-slate-100',
+      'Meetup': 'bg-red-100',
+      'Networking': 'bg-slate-100',
+      'Music': 'bg-red-100',
+      'Art & Culture': 'bg-slate-100',
+      'default': 'bg-gray-100'
     };
     return colors[type as keyof typeof colors] || colors.default;
   }
 
   const getIconColor = (type: string) => {
     const colors = {
-        'Workshop': 'text-red-700',
-        'Conference': 'text-slate-700',
-        'Meetup': 'text-red-700',
-        'Networking': 'text-slate-700',
-        'Music': 'text-red-700',
-        'Art & Culture': 'text-slate-700',
-        'default': 'text-gray-700'
+      'Workshop': 'text-red-700',
+      'Conference': 'text-slate-700',
+      'Meetup': 'text-red-700',
+      'Networking': 'text-slate-700',
+      'Music': 'text-red-700',
+      'Art & Culture': 'text-slate-700',
+      'default': 'text-gray-700'
     };
     return colors[type as keyof typeof colors] || colors.default;
   }
