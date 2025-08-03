@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X, Sparkles } from "lucide-react";
@@ -37,7 +37,6 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  // Effect to track the currently visible section and highlight the corresponding link
   useEffect(() => {
     const sections = ['home', 'event', 'eventform'];
 
@@ -95,7 +94,7 @@ export default function Navbar() {
 
   // Function to apply desktop link classes based on active state
   const getLinkClasses = (href: string) => {
-    const baseClasses = "relative px-4 sm:px-6 py-2 rounded-full transition-all duration-300 ease-in-out font-medium overflow-hidden group";
+    const baseClasses = "relative px-3 sm:px-4 py-1.5 rounded-full transition-all duration-300 ease-in-out font-medium overflow-hidden group text-sm";
     const activeClasses = "bg-red-900 text-white shadow-lg transform scale-105";
     const hoverClasses = "text-slate-700 hover:bg-red-100";
 
@@ -106,7 +105,7 @@ export default function Navbar() {
 
   // Function to apply mobile link classes based on active state
   const getMobileLinkClasses = (href: string) => {
-    const baseClasses = "block py-4 px-6 rounded-xl transition-all duration-300 ease-in-out font-medium relative overflow-hidden";
+    const baseClasses = "block py-3 px-4 rounded-xl transition-all duration-300 ease-in-out font-medium relative overflow-hidden text-sm";
     const activeClasses = "bg-red-700 text-white shadow-lg";
     const hoverClasses = "text-white/80 hover:bg-white/10";
 
@@ -125,30 +124,30 @@ export default function Navbar() {
       aria-label="Main Navigation"
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 sm:h-20">
-          <Link
-            href="/"
-            className="flex items-center space-x-3 group"
-            onClick={() => handleLinkClick("/")}
-          >
+        <div className="flex justify-between items-center h-12 sm:h-14">
+                      <Link
+              href="/"
+              className="flex items-center space-x-2 group"
+              onClick={() => handleLinkClick("/")}
+            >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-slate-800 rounded-full blur-sm opacity-50 group-hover:opacity-80 transition-opacity duration-300"></div>
               <img
                 src="/logo.png"
                 alt="Tech Events Logo"
-                className="relative h-10 w-10 rounded-full border-2 border-white/20 group-hover:border-white/40 transition-all duration-300"
+                className="relative h-7 w-7 rounded-full border-2 border-white/20 group-hover:border-white/40 transition-all duration-300"
               />
             </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-2xl sm:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-red-900 via-rose-900 to-slate-800">
+            <div className="flex items-center space-x-1">
+              <span className="text-lg sm:text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-red-900 via-rose-900 to-slate-800">
                 Tech Events
               </span>
-              <Sparkles className="w-5 h-5 text-red-700 animate-pulse" />
+              <Sparkles className="w-4 h-4 text-red-700 animate-pulse" />
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <ul className="hidden md:flex space-x-2">
+          <ul className="hidden md:flex space-x-1">
             <li>
               <Link
                 href="/"
@@ -176,17 +175,24 @@ export default function Navbar() {
                 <span className="relative z-10">Add Events</span>
               </Link>
             </li>
+            <li>
+              <Link href="/auth" className="ml-3">
+                <button className="bg-gradient-to-r from-red-700 to-slate-800 text-white font-semibold px-4 py-1.5 rounded-full hover:from-red-800 hover:to-slate-900 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm">
+                  Login / Signup
+                </button>
+              </Link>
+            </li>
           </ul>
 
           {/* Mobile Menu Toggle Button */}
           <button
-            className="md:hidden z-50 p-2 rounded-xl bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300"
+            className="md:hidden z-50 p-1.5 rounded-xl bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all duration-300"
             onClick={() => setIsOpen(!isOpen)}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={24} className="text-slate-900" /> : <Menu size={24} className="text-slate-900" />}
+            {isOpen ? <X size={20} className="text-slate-900" /> : <Menu size={20} className="text-slate-900" />}
           </button>
         </div>
       </div>
@@ -199,7 +205,7 @@ export default function Navbar() {
           isOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0 pointer-events-none'
         }`}
       >
-        <div className="relative pt-24 px-6 space-y-4">
+        <div className="relative pt-20 px-6 space-y-3">
           <li>
             <Link
               href="/"
@@ -225,6 +231,15 @@ export default function Navbar() {
               onClick={() => handleLinkClick("#eventform")}
             >
               <span className="relative z-10">Add Event</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/auth"
+              className={getMobileLinkClasses("/auth")}
+              onClick={() => handleLinkClick("/auth")}
+            >
+              <span className="relative z-10">Login / Signup</span>
             </Link>
           </li>
 
