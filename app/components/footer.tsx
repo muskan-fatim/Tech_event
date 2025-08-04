@@ -20,7 +20,17 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    // The main footer container now uses a dark gradient similar to the hero section.
+    <footer className="bg-gradient-to-r from-blue-600 to-purple-700 dark:from-gray-900 dark:to-gray-800 text-white py-10 transition-all duration-300">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* About Section */}
+          <div>
+            <h3 className="text-xl font-semibold">About Us</h3>
+            <p className="mt-2 text-gray-200 dark:text-gray-400">
+              We bring you the best tech events in town. Stay updated with conferences, meetups, and more.
+
+              
+              // The main footer container now uses a dark gradient similar to the hero section.
     <footer className="relative bg-gradient-to-br from-black via-slate-950 to-black text-white overflow-hidden font-inter">
       {/* Animated Background Elements - these are now darker shades of red and rose, matching the hero's aesthetic */}
       <div className="absolute inset-0">
@@ -60,6 +70,8 @@ const Footer: React.FC = () => {
             <p className="text-white/80 text-lg leading-relaxed mb-6 max-w-md">
               Connecting innovators, creators, and learners through extraordinary tech experiences. 
               Discover workshops, meetups, and events that shape the future.
+
+            
             </p>
 
             {/* Stats - icons and text are now red/white */}
@@ -85,7 +97,25 @@ const Footer: React.FC = () => {
 
           {/* Quick Links Section */}
           <div>
-            <h3 className="text-xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-100 to-rose-100">
+
+            
+            <h3 className="text-xl font-semibold">Quick Links</h3>
+            <ul className="mt-2 space-y-2">
+              <li>
+                <a href="#" className="hover:text-gray-300 dark:hover:text-gray-400 transition">Home</a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-300 dark:hover:text-gray-400 transition">Events</a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-300 dark:hover:text-gray-400 transition">About</a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-300 dark:hover:text-gray-400 transition">Contact</a>
+              </li>
+
+              
+              <h3 className="text-xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-100 to-rose-100">
               Quick Links
             </h3>
             <ul className="space-y-3">
@@ -104,7 +134,18 @@ const Footer: React.FC = () => {
 
           {/* Contact Info Section */}
           <div>
-            <h3 className="text-xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-rose-100 to-red-100">
+            
+            
+            <h3 className="text-xl font-semibold">Contact</h3>
+            <p className="mt-2 text-gray-200 dark:text-gray-400">Email: info@techevents.com</p>
+            <p className="text-gray-200 dark:text-gray-400">Phone: +123 456 7890</p>
+            <div className="mt-4 flex space-x-4">
+              <a href="#" className="hover:text-gray-300 dark:hover:text-gray-400 transition">Facebook</a>
+              <a href="#" className="hover:text-gray-300 dark:hover:text-gray-400 transition">Twitter</a>
+              <a href="#" className="hover:text-gray-300 dark:hover:text-gray-400 transition">LinkedIn</a>
+
+              
+              <h3 className="text-xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-rose-100 to-red-100">
               Get In Touch
             </h3>
             
@@ -139,11 +180,18 @@ const Footer: React.FC = () => {
                   </a>
                 );
               })}
-            </div>
+
+              
+              </div>
           </div>
         </div>
 
-      
+        {/* Copyright */}
+        <div className="mt-8 border-t border-gray-400 dark:border-gray-600 pt-4 text-center text-gray-300 dark:text-gray-400">
+          <p>&copy; {new Date().getFullYear()} Tech Events. All rights reserved.</p>
+
+              
+              
 
         {/* Bottom Section - copyright and terms */}
         <div className="border-t border-white/20 pt-8">
@@ -163,7 +211,8 @@ const Footer: React.FC = () => {
               <a href="#" className="hover:text-white transition-colors duration-300">Terms of Service</a>
             </div>
           </div>
-        </div>
+
+              </div>
       </div>
     </footer>
   );

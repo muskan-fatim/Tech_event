@@ -66,6 +66,42 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
     }, 1500);
   };
 
+
+  
+  return (
+    <div id="eventform" className="max-w-4xl mx-auto bg-white dark:bg-gray-900 text-gray-800 dark:text-white mb-20 mt-5 shadow-lg rounded-xl p-6 md:p-8 lg:p-10 transition-colors duration-500">
+      <h2 className="text-3xl font-bold text-center mb-6">
+        {initialEvent ? "Edit Event" : "Create New Event"}
+      </h2>
+
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {/* Event Name */}
+        <div className="col-span-1">
+          <label className="block font-medium">Event Name</label>
+          <input
+            type="text"
+            name="eventName"
+            placeholder="Enter event name"
+            value={eventData.eventName}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            required
+          />
+        </div>
+
+        {/* Location */}
+        <div className="col-span-1">
+          <label className="block font-medium">Location</label>
+          <input
+            type="text"
+            name="location"
+            placeholder="Enter location"
+            value={eventData.location}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            required
+          />
+=======
   // Function to get event-type-specific colors for the new theme
   const getEventTypeColor = (type: string) => {
     const colors = {
@@ -89,11 +125,86 @@ const EventForm: React.FC<EventFormProps> = ({ onSave, initialEvent }) => {
             <X size={24} />
           </button>
           <div className="text-center font-bold text-xl">{message}</div>
+
+        
         </div>
       </div>
     );
   };
 
+        {/* Address */}
+        <div className="sm:col-span-2">
+          <label className="block font-medium">Address</label>
+          <input
+            type="text"
+            name="address"
+            placeholder="Enter address"
+            value={eventData.address}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            required
+          />
+        </div>
+
+        {/* Organizer Name */}
+        <div className="col-span-1">
+          <label className="block font-medium">Organizer Name</label>
+          <input
+            type="text"
+            name="organizer"
+            placeholder="Organizer name"
+            value={eventData.organizer}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            required
+          />
+        </div>
+
+        {/* Date & Time */}
+        <div className="grid grid-cols-2 gap-4 col-span-1 sm:col-span-2">
+          <div>
+            <label className="block font-medium">Date</label>
+            <input
+              type="date"
+              name="date"
+              value={eventData.date}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium">Time</label>
+            <input
+              type="time"
+              name="time"
+              value={eventData.time}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              required
+            />
+          </div>
+        </div>
+
+        {/* Event Type */}
+        <div className="col-span-1 sm:col-span-2">
+          <label className="block font-medium">Event Type</label>
+          <select
+            name="eventType"
+            value={eventData.eventType}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          >
+            <option>Conference</option>
+            <option>Meeting</option>
+            <option>Workshop</option>
+            <option>Networking</option>
+            <option>Webinar</option>
+            <option>Other</option>
+          </select>
+        </div>
+=======
   return (
     <div className="min-h-screen bg-white relative overflow-hidden py-16" id="eventform">
       {/* Background Elements for visual interest */}

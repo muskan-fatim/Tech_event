@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 
 const Loader = () => {
   return (
+    <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-900 via-purple-800 to-blue-600 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
     // Background with a dark gradient from black to slate-950, matching the hero section
     <div className="flex items-center justify-center h-screen bg-gradient-to-br from-black via-slate-950 to-black">
       <div className="relative flex flex-col items-center">
@@ -15,7 +16,9 @@ const Loader = () => {
             borderImage: "conic-gradient(from 0deg at 50% 50%, #FF0000 0%, #8B0000 50%, #FF0000 100%) 1",
           }}
         />
-
+        {/* Glowing Text */}
+        <h2 className="mt-6 text-2xl font-semibold text-white dark:text-gray-100 animate-pulse">
+          Loading Tech Events...
         {/* Pulsating Glow for the ring to enhance the "loading" effect */}
         <motion.div
           animate={{
@@ -31,7 +34,9 @@ const Loader = () => {
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-white to-red-500">
             Loading Tech Events...
           </span>
-        </h2>
+
+          
+          </h2>
       </div>
     </div>
   );
