@@ -2,25 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 🌗 Light mode (default) */
+:root {
+  --background: white;
+  --foreground: black;
+}
+
+/* 🌑 Dark mode */
+.dark {
+  --background: #1E1B2E; /* Dark purple */
+  --foreground: #A3A3A3; /* Soft grey */
+}
+
+/* Global background/text color transitions */
+html {
+  transition: background-color 0.3s, color 0.3s;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
 /* Custom CSS for the text glow effect */
 .text-glow-effect {
-  /* Define the default (no glow) state */
   text-shadow: none;
-  transition: text-shadow 0.3s ease-in-out; /* Smooth transition for the glow */
+  transition: text-shadow 0.3s ease-in-out;
 }
 
-/* Apply glow on hover */
 .text-glow-effect:hover {
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), /* Soft outer glow */
-               0 0 15px rgba(255, 255, 255, 0.4); /* Brighter inner glow */
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
+               0 0 15px rgba(255, 255, 255, 0.4);
 }
 
-/* Apply glow on focus (for accessibility, e.g., if tabbed to) */
 .text-glow-effect:focus {
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
                0 0 15px rgba(255, 255, 255, 0.4);
   outline: none;
 }
+
+
 
 #lights {
   width: 100%;
@@ -33,4 +51,6 @@ canvas {
   width: 100%;
   height: 100%;
 }
+
+
 
