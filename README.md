@@ -1,6 +1,6 @@
 # 🔐 Tech_Event
 
-![GSSoC Logo](Tech_event/public/gssoc%20logo.png)
+![GSSoC Logo](https://github.com/muskan-fatim/Tech_event/blob/main/public/gssoc%20logo.png)
 
 🌐 Visit the website to explore real-world projects, filter by tech stack, and discover new ideas!
 
