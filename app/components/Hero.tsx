@@ -41,9 +41,9 @@ const redWhitePreset = {
     background: 0x000000,
     shoulderLines: 0xFFFFFF,
     brokenLines: 0xFFFFFF,
-    leftCars: [0xFF0000, 0xDC2626, 0xB91C1C], // Red variations
-    rightCars: [0xFFFFFF, 0xF3F4F6, 0xE5E7EB], // White variations
-    sticks: 0xFF0000, // Red sticks
+    leftCars: [0xFF0000, 0xDC2626, 0xB91C1C],
+    rightCars: [0xFFFFFF, 0xF3F4F6, 0xE5E7EB],
+    sticks: 0xFF0000,
   }
 };
 
@@ -62,32 +62,14 @@ const Hero: React.FC<HeroProps> = ({ searchQuery, setSearchQuery }) => {
   ];
 
   return (
-
-    <div
-      id="home"
-      className="w-full bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 sm:px-6 lg:px-8 transition-all duration-500"
-    >
-      <div className="max-w-6xl mx-auto text-center py-16 md:py-24 lg:py-32">
-        {/* Heading */}
-        <h1 className="pt-5 text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-300 dark:to-purple-300">
-          Discover Amazing Events
-        </h1>
-        <p className="text-lg sm:text-xl mt-4 max-w-2xl mx-auto text-gray-700 dark:text-gray-300">
-          Search through exciting events, workshops, and meetups happening near you!
-        </p>
-
-        {/* Search Bar */}
-        <div className="mt-8 max-w-3xl mx-auto">
-          <div className="relative">
-
-            <div id="home" className="relative w-full min-h-screen bg-gradient-to-br from-black via-slate-950 to-black overflow-hidden font-sans">
+    <div id="home" className="relative w-full min-h-screen bg-gradient-to-br from-black via-slate-950 to-black overflow-hidden font-sans">
       {/* Hyperspeed Animation Background */}
       <div className="absolute inset-0 z-0">
         <Hyperspeed effectOptions={redWhitePreset} />
       </div>
 
-      {/* Overlay to ensure text readability */}
-      <div className="absolute inset-0 bg-black/30 z-10"></div>
+      {/* Overlay for text readability */}
+      <div className="absolute inset-0 bg-black/30 z-10" />
 
       {/* Floating Icons */}
       {floatingElements.map((element, index) => {
@@ -106,7 +88,6 @@ const Hero: React.FC<HeroProps> = ({ searchQuery, setSearchQuery }) => {
       {/* Main Content */}
       <div className="relative z-40 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-center min-h-screen text-center py-12">
-          
           {/* Heading */}
           <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-3 mt-4 sm:mb-4 leading-tight">
@@ -128,19 +109,14 @@ const Hero: React.FC<HeroProps> = ({ searchQuery, setSearchQuery }) => {
             </p>
           </div>
 
-          {/* 🔍 Search Input */}
+          {/* Search Input */}
           <div className="w-full max-w-lg mb-8">
-
-            
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-
-              
-              className="w-full py-4 sm:py-5 px-6 text-lg border border-gray-200 dark:border-gray-600 rounded-full shadow-md bg-white dark:bg-gray-700 text-black dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all duration-300"
-              placeholder="Search events by city, name, or category..."
               className="w-full px-4 py-2.5 rounded-lg text-base focus:outline-none bg-white/10 text-white placeholder-white/60 border border-white/20 backdrop-blur-sm"
+              placeholder="Search events by city, name, or category..."
             />
           </div>
 
@@ -174,10 +150,9 @@ const Hero: React.FC<HeroProps> = ({ searchQuery, setSearchQuery }) => {
               className="group relative inline-block px-6 py-3 bg-gradient-to-r from-red-900 via-red-800 to-red-900 text-white font-bold text-base rounded-xl hover:scale-105 transform transition-all duration-300 shadow-xl overflow-hidden"
             >
               <span className="relative z-10">Explore All Events</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-rose-800 via-red-700 to-rose-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-rose-800 via-red-700 to-rose-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
           </div>
-
         </div>
       </div>
     </div>
