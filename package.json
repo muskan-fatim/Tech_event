@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.12",
     "axios": "^1.7.9",
     "csv-writer": "^1.6.0",
     "framer-motion": "^12.4.7",
