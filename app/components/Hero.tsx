@@ -62,7 +62,6 @@ const Hero: React.FC<HeroProps> = ({ searchQuery, setSearchQuery }) => {
   ];
 
   return (
-
     <div
       id="home"
       className="w-full bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 sm:px-6 lg:px-8 transition-all duration-500"
@@ -81,106 +80,105 @@ const Hero: React.FC<HeroProps> = ({ searchQuery, setSearchQuery }) => {
           <div className="relative">
 
             <div id="home" className="relative w-full min-h-screen bg-gradient-to-br from-black via-slate-950 to-black overflow-hidden font-sans">
-      {/* Hyperspeed Animation Background */}
-      <div className="absolute inset-0 z-0">
-        <Hyperspeed effectOptions={redWhitePreset} />
-      </div>
+              {/* Hyperspeed Animation Background */}
+              <div className="absolute inset-0 z-0">
+                <Hyperspeed effectOptions={redWhitePreset} />
+              </div>
 
-      {/* Overlay to ensure text readability */}
-      <div className="absolute inset-0 bg-black/30 z-10"></div>
+              {/* Overlay to ensure text readability */}
+              <div className="absolute inset-0 bg-black/30 z-10"></div>
 
-      {/* Floating Icons */}
-      {floatingElements.map((element, index) => {
-        const IconComponent = element.icon;
-        return (
-          <div
-            key={index}
-            className={`absolute ${element.position} text-white/5 animate-bounce hidden lg:block z-30`}
-            style={{ animationDelay: element.delay, animationDuration: '3s' }}
-          >
-            <IconComponent size={24} />
-          </div>
-        );
-      })}
-
-      {/* Main Content */}
-      <div className="relative z-40 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center justify-center min-h-screen text-center py-12">
-          
-          {/* Heading */}
-          <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-3 mt-4 sm:mb-4 leading-tight">
-              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-neutral-300 to-white">
-                Discover
-              </span>
-              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-red-900 via-rose-900 to-slate-400 mt-1 sm:mt-2">
-                Fantastic Events
-              </span>
-            </h1>
-          </div>
-
-          {/* Subtitle */}
-          <div className={`transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed font-light mb-6">
-              Unlock extraordinary experiences with <span className="font-semibold text-red-500">workshops</span>, 
-              <span className="font-semibold text-rose-500"> meetups</span>, and 
-              <span className="font-semibold text-neutral-400"> events</span> happening around you
-            </p>
-          </div>
-
-          {/* 🔍 Search Input */}
-          <div className="w-full max-w-lg mb-8">
-
-            
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-
-              
-              className="w-full py-4 sm:py-5 px-6 text-lg border border-gray-200 dark:border-gray-600 rounded-full shadow-md bg-white dark:bg-gray-700 text-black dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all duration-300"
-              placeholder="Search events by city, name, or category..."
-              className="w-full px-4 py-2.5 rounded-lg text-base focus:outline-none bg-white/10 text-white placeholder-white/60 border border-white/20 backdrop-blur-sm"
-            />
-          </div>
-
-          {/* Stats Cards */}
-          <div className={`transform transition-all duration-1000 delay-700 mt-2 grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            {[
-              { number: '10K+', label: 'Events Listed', icon: Calendar },
-              { number: '500+', label: 'Cities Covered', icon: MapPin },
-              { number: '50K+', label: 'Happy Users', icon: Sparkles }
-            ].map((stat, index) => {
-              const IconComponent = stat.icon;
-              return (
-                <div
-                  key={index}
-                  className="group bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 hover:scale-105 transform transition-all duration-300 cursor-pointer"
-                >
-                  <div className="flex items-center justify-center mb-2">
-                    <IconComponent className="w-6 h-6 text-red-700 group-hover:text-rose-600 transition-colors duration-300" />
+              {/* Floating Icons */}
+              {floatingElements.map((element, index) => {
+                const IconComponent = element.icon;
+                return (
+                  <div
+                    key={index}
+                    className={`absolute ${element.position} text-white/5 animate-bounce hidden lg:block z-30`}
+                    style={{ animationDelay: element.delay, animationDuration: '3s' }}
+                  >
+                    <IconComponent size={24} />
                   </div>
-                  <div className="text-2xl font-bold text-white mb-1">{stat.number}</div>
-                  <div className="text-white/70 text-xs font-medium">{stat.label}</div>
+                );
+              })}
+
+              {/* Main Content */}
+              <div className="relative z-40 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col items-center justify-center min-h-screen text-center py-12">
+
+                  {/* Heading */}
+                  <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                    <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-3 mt-4 sm:mb-4 leading-tight">
+                      <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-neutral-300 to-white">
+                        Discover
+                      </span>
+                      <span className="block bg-clip-text text-transparent bg-gradient-to-r from-red-900 via-rose-900 to-slate-400 mt-1 sm:mt-2">
+                        Fantastic Events
+                      </span>
+                    </h1>
+                  </div>
+
+                  {/* Subtitle */}
+                  <div className={`transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                    <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed font-light mb-6">
+                      Unlock extraordinary experiences with <span className="font-semibold text-red-500">workshops</span>,
+                      <span className="font-semibold text-rose-500"> meetups</span>, and
+                      <span className="font-semibold text-neutral-400"> events</span> happening around you
+                    </p>
+                  </div>
+
+                  {/* 🔍 Search Input */}
+                  <div className="w-full max-w-lg mb-8">
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-lg text-base focus:outline-none bg-white/10 text-white placeholder-white/60 border border-white/20 backdrop-blur-sm"
+                      placeholder="Search events by city, name, or category..."
+                    />
+                  </div>
+
+                  {/* Stats Cards */}
+                  <div className={`transform transition-all duration-1000 delay-700 mt-2 grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                    {[
+                      { number: '10K+', label: 'Events Listed', icon: Calendar },
+                      { number: '500+', label: 'Cities Covered', icon: MapPin },
+                      { number: '50K+', label: 'Happy Users', icon: Sparkles }
+                    ].map((stat, index) => {
+                      const IconComponent = stat.icon;
+                      return (
+                        <div
+                          key={index}
+                          className="group bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 hover:scale-105 transform transition-all duration-300 cursor-pointer"
+                        >
+                          <div className="flex items-center justify-center mb-2">
+                            <IconComponent className="w-6 h-6 text-red-700 group-hover:text-rose-600 transition-colors duration-300" />
+                          </div>
+                          <div className="text-2xl font-bold text-white mb-1">{stat.number}</div>
+                          <div className="text-white/70 text-xs font-medium">{stat.label}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className={`transform transition-all duration-1000 delay-900 mt-8 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                    <Link
+                      href="#event"
+                      className="group relative inline-block px-6 py-3 bg-gradient-to-r from-red-900 via-red-800 to-red-900 text-white font-bold text-base rounded-xl hover:scale-105 transform transition-all duration-300 shadow-xl overflow-hidden"
+                    >
+                      <span className="relative z-10">Explore All Events</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-rose-800 via-red-700 to-rose-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </Link>
+                  </div>
+
                 </div>
-              );
-            })}
+              </div>
+            </div> {/* closes inner #home */}
           </div>
-
-          {/* CTA Button */}
-          <div className={`transform transition-all duration-1000 delay-900 mt-8 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <Link
-              href="#event"
-              className="group relative inline-block px-6 py-3 bg-gradient-to-r from-red-900 via-red-800 to-red-900 text-white font-bold text-base rounded-xl hover:scale-105 transform transition-all duration-300 shadow-xl overflow-hidden"
-            >
-              <span className="relative z-10">Explore All Events</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-rose-800 via-red-700 to-rose-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Link>
-          </div>
-
         </div>
       </div>
-    </div>
+    </div> {/* closes outer #home */}
   );
 };
 
