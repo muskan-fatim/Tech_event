@@ -792,6 +792,8 @@ const RegistrationFormModal: React.FC<RegistrationFormModalProps> = ({ isOpen, o
 };
 
 // Main EventComponent that receives events as prop
+
+
 interface EventComponentProps {
   events: any[];
 }
